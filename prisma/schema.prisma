@@ -102,6 +102,7 @@ model Comment{
 model Work{
     id  String @id @default(cuid()) 
     title String 
+    img String
     author   User @relation(fields: [authorId], references: [id])
     authorId String   
     updated_last  DateTime @updatedAt
