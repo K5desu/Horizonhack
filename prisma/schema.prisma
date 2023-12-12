@@ -134,7 +134,3 @@ model TagUser{
     tag_id   Int
 
 }
-    
-
-
-   
