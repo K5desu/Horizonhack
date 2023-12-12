@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Account{
+id String @id @default(cuid())
+userId String @relation
+type String
+provider String
+providerAccountId  String
+refresh_token  String
+access_token  String
+expires_at  Int 
+token_type  String
+scope String
+ id_token  String
+ session_state  String
+}
+
+model Session{
+
+    id String  @id @default(cuid())
+    sessionToken String @unique
+    userId  String  @relation
+    expires  DateTime 
+}
+
+model User{
+  id  Int @id
+ name String 
+email String  @unique 
+emailVerified  DateTime
+avatar  String
+ role  Int @relation
+}
+
+model Role{
+  id Int @id @default(autoincrement())
+  name String
+
+}
+model VerificationToken{
+  identifier  String
+  token String @unique @id
+  expires  DateTime 
+}
+
+model Article{
+  id  String  @id  @default(cuid())
+  title String
+  body  String 
+  writer  Int   @relation
+  tags  String
+  updated_last   DateTime 
+  created_at  DateTime  @default(now())
+  updated_At DateTime @updatedAt
+}
+
+model Comment{
+    id  Int  @id @default(autoincrement())
+    article_id  Int 
+    comments  String 
+    user_id Int 
+    created_at DateTime @default(now())
+
+}
+
+model Work{
+    id  String @id @default(cuid()) 
+    title String 
+    writer Int @relation
+    updated_last  DateTime @updatedAt
+    created_at  DateTime  @default(now())
+ 
+
+}
+
+model TechTag{
+  id  Int  @id @default(autoincrement())
+  name  String 
+  img  String
+}
+
+model TagUser_state {
+  id Int @id
+  state  String 
+}
