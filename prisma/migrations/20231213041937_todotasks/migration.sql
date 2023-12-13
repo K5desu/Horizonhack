@@ -59,7 +59,6 @@ CREATE TABLE "Article" (
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
     "authorId" TEXT NOT NULL,
-    "tags" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_At" TIMESTAMP(3) NOT NULL,
 
@@ -115,6 +114,12 @@ CREATE TABLE "TagUser" (
     CONSTRAINT "TagUser_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_ArticleToTechTag" (
+    "A" TEXT NOT NULL,
+    "B" INTEGER NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
@@ -132,6 +137,12 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Role_userId_key" ON "Role"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ArticleToTechTag_AB_unique" ON "_ArticleToTechTag"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ArticleToTechTag_B_index" ON "_ArticleToTechTag"("B");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -159,3 +170,9 @@ ALTER TABLE "TagUser" ADD CONSTRAINT "TagUser_user_id_fkey" FOREIGN KEY ("user_i
 
 -- AddForeignKey
 ALTER TABLE "TagUser" ADD CONSTRAINT "TagUser_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "TechTag"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ArticleToTechTag" ADD CONSTRAINT "_ArticleToTechTag_A_fkey" FOREIGN KEY ("A") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ArticleToTechTag" ADD CONSTRAINT "_ArticleToTechTag_B_fkey" FOREIGN KEY ("B") REFERENCES "TechTag"("id") ON DELETE CASCADE ON UPDATE CASCADE;

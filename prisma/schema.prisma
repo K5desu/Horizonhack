@@ -83,7 +83,7 @@ model Article{
   author   User @relation(fields: [authorId], references: [id])
   authorId String
 
-  tags  String
+  tags  TechTag[]
 
   created_at  DateTime  @default(now())
   updated_At DateTime @updatedAt
@@ -114,6 +114,7 @@ model Work{
 model TechTag{
   id  Int  @id @default(autoincrement())
   name  String 
+  tag_article Article[]
   taguser_state TagUser_state[]
   tag_user TagUser[]
 
