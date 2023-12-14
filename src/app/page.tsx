@@ -10,7 +10,7 @@ export default function AvatarUploadPage() {
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   return (
     <>
-      <h1>Upload Your Avatar</h1>
+      <h1>Upload Your Worksimage</h1>
 
       <form
         onSubmit={async (event) => {
@@ -32,7 +32,7 @@ export default function AvatarUploadPage() {
 
           const newBlob = (await response.json()) as PutBlobResult;
 
-          setBlob(newBlob);
+          setBlob(newBlob);//この情報をデータベースに保存
         }}
       >
         <input name="file" ref={inputFileRef} type="file" required />

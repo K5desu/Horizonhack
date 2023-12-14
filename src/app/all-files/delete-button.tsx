@@ -18,7 +18,7 @@ export default function DeleteButton({url}:Props){
             router.refresh();
         }}
         >
-
+            delete
         </button>
     )
 }
