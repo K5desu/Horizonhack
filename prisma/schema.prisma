@@ -5,27 +5,24 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("LOCAL_DATABASE_URL")
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String  
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -46,15 +43,13 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role          String
   accounts      Account[]
   sessions      Session[]
-  role          String   
   article       Article[]
   comment       Comment[]
   work          Work[]
   taguser       TagUser[]
-
-
 }
 
 model VerificationToken {
@@ -65,68 +60,57 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
-
-
-
-
-
-model Article{
-  id  String  @id  @default(cuid())
-  title String
-  body  String 
-  author   User @relation(fields: [authorId], references: [id])
+model Article {
+  id       String @id @default(cuid())
+  title    String
+  body     String
+  author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  tags  TechTag[]
+  tags TechTag[]
 
-  created_at  DateTime  @default(now())
+  created_at DateTime @default(now())
   updated_At DateTime @updatedAt
 }
 
-model Comment{
-    id  Int  @id @default(autoincrement())
-    article_id  Int 
-    comments  String
-    author   User @relation(fields: [authorId], references: [id])
-    authorId String 
-    created_at DateTime @default(now())
-
+model Comment {
+  id         Int      @id @default(autoincrement())
+  article_id Int
+  comments   String
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String
+  created_at DateTime @default(now())
 }
 
-model Work{
-    id  String @id @default(cuid()) 
-    title String 
-    img String
-    author   User @relation(fields: [authorId], references: [id])
-    authorId String   
-    updated_last  DateTime @updatedAt
-    created_at  DateTime  @default(now())
- 
-
+model Work {
+  id           String   @id @default(cuid())
+  title        String
+  img          String
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     String
+  updated_last DateTime @updatedAt
+  created_at   DateTime @default(now())
 }
 
-model TechTag{
-  id  Int  @id @default(autoincrement())
-  name  String 
-  tag_article Article[]
+model TechTag {
+  id            Int             @id @default(autoincrement())
+  name          String
+  tag_article   Article[]
   taguser_state TagUser_state[]
-  tag_user TagUser[]
-
+  tag_user      TagUser[]
 }
 
 model TagUser_state {
-  id Int @id
-  state  String 
+  id       Int     @id
+  state    String
   author   TechTag @relation(fields: [authorId], references: [id])
-  authorId Int 
-  
+  authorId Int
 }
-model TagUser{
-    id Int @id @default(autoincrement())
-    user_author2   User @relation(fields: [user_id], references: [id])
-    tag_author   TechTag @relation(fields: [tag_id], references: [id])
-    user_id  String
-    tag_id   Int
 
+model TagUser {
+  id           Int     @id @default(autoincrement())
+  user_author2 User    @relation(fields: [user_id], references: [id])
+  tag_author   TechTag @relation(fields: [tag_id], references: [id])
+  user_id      String
+  tag_id       Int
 }
