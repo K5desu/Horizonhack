@@ -1,5 +1,27 @@
 import { put ,del} from '@vercel/blob';
+import { head } from '@vercel/blob';
 import { NextResponse } from 'next/server';
+ 
+export const runtime = 'edge';
+ 
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const fileurl = searchParams.get('url');
+
+  if(fileurl){
+    const blobDetails = await head(fileurl);
+    return Response.json(blobDetails);
+  }
+  else {
+    return NextResponse.json({message:"Nourl"});
+}
+
+  
+ 
+  
+}
+
 
 export async function DELETE(request:Request){
   const json=await request.json();
