@@ -2,11 +2,18 @@
 
 import type { PutBlobResult } from '@vercel/blob'
 import { useState, useRef } from 'react'
+import { whethere } from './whethereexit'
+import { postWork } from './post'
+import { useParams } from 'next/navigation'
+import{editWork}from "./edit"
 
 export default function AvatarUploadPage() {
   const inputFileRef = useRef<HTMLInputElement>(null)
+  const inputUrlRef = useRef<HTMLInputElement>(null)
+  const inputTitleRef = useRef<HTMLInputElement>(null)
   const [blob, setBlob] = useState<PutBlobResult | null>(null)
-  const [pcurl, setPcurl] = useState<string | null>(null)
+   const {id} = useParams();//動的ルーティングのid取得
+ 
 
   return (
     <>
@@ -14,6 +21,8 @@ export default function AvatarUploadPage() {
 
       <form
         onSubmit={async (event) => {
+          
+          //blobに画像データpost
           event.preventDefault()
 
           if (!inputFileRef.current?.files) {
@@ -27,24 +36,56 @@ export default function AvatarUploadPage() {
             body: file,
           })
 
-          const newBlob = (await response.json()) as PutBlobResult
+          const newBlob = (await response.json()) as PutBlobResult//挿入した画像のurl帰ってくる
 
-          setBlob(newBlob) //newBlob.url情報をデータベースに保存
-          const picture = await fetch(`/api/file?url=${newBlob.url}`, {
-            method: 'GET',
-          })
-          console.log(picture.url)
-          setPcurl(picture.url)
+          setBlob(newBlob) 
+          //url,imgurl,title,を作成時はidで挿入 idはurlから取得
+         //この三つの値をpostまたはeditへ
+
+      
+          //urlあるかどうか確認
+        
+          
+          const get=await whethere(String(id));
+           
+           //url,imgurl,title,を作成時はidで挿入 idはurlから取得
+          if(inputTitleRef.current?.value&&inputUrlRef.current?.value&&newBlob.url&&id){
+            if(get=="post"){
+              //postならid=userid
+              postWork(String(id),inputTitleRef.current?.value,inputUrlRef.current.value,newBlob.url)
+
+          }
+          else if(get=="edit"){
+            //editならid=imgid
+            editWork(String(id),inputTitleRef.current?.value,inputUrlRef.current.value,newBlob.url)
+
+          }
+        }
+          
+          
+      
         }}
+
       >
         <input name="file" ref={inputFileRef} type="file" required />
         <input
           type="text"
           id="name"
-          name="name"
+          name="url"
+          className="box-border"
+          placeholder="urlを貼り付けてください"
+          ref={inputUrlRef}
+          required
+          
+        />
+        <input
+          type="text"
+          id="name"
+          name="title"
           className="box-border"
           placeholder="タイトル入力してください"
           required
+          ref={inputTitleRef}
         />
         <button type="submit">Upload</button>
       </form>
