@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 type Props = {
-  url: string
+  url: string | null
 }
 
 export default function DeleteButton({ url }: Props) {

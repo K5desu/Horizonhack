@@ -2,8 +2,7 @@
 
 import type { PutBlobResult } from '@vercel/blob'
 import { useState, useRef } from 'react'
-import { whethere } from './whethereexit'
-import { postWork } from './post'
+
 import { useParams } from 'next/navigation'
 import { editWork } from './edit'
 
@@ -40,27 +39,16 @@ export default function AvatarUploadPage() {
           //url,imgurl,title,を作成時はidで挿入 idはurlから取得
           //この三つの値をpostまたはeditへ
           //urlあるかどうか確認
-          const get = await whethere(String(id))
 
           //url,imgurl,title,を作成時はidで挿入 idはurlから取得
+          //このidはimgid
           if (inputTitleRef.current?.value && inputUrlRef.current?.value && newBlob.url && id) {
-            if (get == 'post') {
-              //postならid=userid
-              postWork(
-                String(id),
-                inputTitleRef.current?.value,
-                inputUrlRef.current.value,
-                newBlob.url
-              )
-            } else if (get == 'edit') {
-              //editならid=imgid
-              editWork(
-                String(id),
-                inputTitleRef.current?.value,
-                inputUrlRef.current.value,
-                newBlob.url
-              )
-            }
+            await editWork(
+              String(id),
+              inputTitleRef.current?.value,
+              inputUrlRef.current.value,
+              newBlob.url
+            )
           }
         }}
       >

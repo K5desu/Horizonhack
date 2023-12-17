@@ -1,15 +1,15 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-export const postWork = async (id: string, title: string, url: string, img: string) => {
+export const postWork = async (id: string) => {
   try {
     await prisma.user.update({
       where: {
-        id: id,
+        id: id, //セッション情報からとってくる
       },
       data: {
         work: {
-          create: [{ title: title, url: url, img: img }],
+          create: [{ id: id }],
         },
       },
     })

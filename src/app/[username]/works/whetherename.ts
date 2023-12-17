@@ -7,9 +7,10 @@ export const whethere = async (id: string) => {
       where: {
         id: id,
       },
+      include: { author: true },
     })
-    return 'edit'
+    return whethere
   } catch (error) {
-    return 'post'
+    return { notFound: true }
   }
 }

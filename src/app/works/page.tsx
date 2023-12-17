@@ -1,18 +1,21 @@
-import { list } from '@vercel/blob'
-
-import DeleteButton from './delete-button'
+import Link from 'next/link'
+import { All } from './getAllWork'
 
 export default async function AllFilesPage() {
-  const { blobs } = await list()
+  const blobs = await All()
 
   return (
     <div>
-      {blobs.map((blob) => (
-        <div key={blob.url}>
-          <img src={blob.url}></img> {/* この情報をデータベースからgetする*/}
-          {blob.pathname}-<DeleteButton url={blob.url} />
-        </div>
-      ))}
+      {blobs != 'error' &&
+        blobs.map((blob) => (
+          <div key={blob.url}>
+            {blob.url && (
+              <Link href={blob.url}>
+                {blob.img && <img src={blob.img} alt="Notfound"></img>} {blob.author.name}-
+              </Link>
+            )}
+          </div>
+        ))}
     </div>
   )
 }

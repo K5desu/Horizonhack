@@ -48,8 +48,8 @@ CREATE TABLE "VerificationToken" (
 -- CreateTable
 CREATE TABLE "Article" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "body" TEXT NOT NULL,
+    "title" TEXT,
+    "body" TEXT,
     "authorId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_At" TIMESTAMP(3) NOT NULL,
@@ -71,8 +71,9 @@ CREATE TABLE "Comment" (
 -- CreateTable
 CREATE TABLE "Work" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "img" TEXT NOT NULL,
+    "title" TEXT,
+    "url" TEXT,
+    "img" TEXT,
     "authorId" TEXT NOT NULL,
     "updated_last" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

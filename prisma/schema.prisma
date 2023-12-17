@@ -62,8 +62,8 @@ model VerificationToken {
 
 model Article {
   id       String @id @default(cuid())
-  title    String
-  body     String
+  title    String?
+  body     String?
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
@@ -84,9 +84,9 @@ model Comment {
 
 model Work {
   id           String   @id @default(cuid())
-  title        String
-  url          String
-  img          String
+  title        String?
+  url          String?
+  img          String?
   author       User     @relation(fields: [authorId], references: [id])
   authorId     String
   updated_last DateTime @updatedAt

@@ -14,6 +14,6 @@ export const editWork = async (id: string, title: string, url: string, img: stri
       },
     })
   } catch (error) {
-    return 'error'
+    return 'cantpost'
   }
 }
