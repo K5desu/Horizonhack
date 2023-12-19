@@ -2,11 +2,15 @@
 
 import type { PutBlobResult } from '@vercel/blob'
 import { useState, useRef } from 'react'
-
-export default function AvatarUploadPage() {
+import { editWork } from '@/app/api/works/edit/edit'
+import { notFound } from '@/app/api/works/edit/404'
+export default function AvatarUploadPage({ params }: { params: { id: string } }) {
   const inputFileRef = useRef<HTMLInputElement>(null)
+  const inputUrlRef = useRef<HTMLInputElement>(null)
+  const inputTitleRef = useRef<HTMLInputElement>(null)
   const [blob, setBlob] = useState<PutBlobResult | null>(null)
-  const [pcurl, setPcurl] = useState<string | null>(null)
+  const id = params.id
+  //動的ルーティングのid取得
 
   return (
     <>
@@ -14,8 +18,13 @@ export default function AvatarUploadPage() {
 
       <form
         onSubmit={async (event) => {
+          //blobに画像データpost
           event.preventDefault()
-
+          const notfound = await notFound(String(id))
+          if (notfound == 'no') {
+            console.log(notfound)
+            return { notFound: true }
+          }
           if (!inputFileRef.current?.files) {
             throw new Error('No file selected')
           }
@@ -27,24 +36,52 @@ export default function AvatarUploadPage() {
             body: file,
           })
 
-          const newBlob = (await response.json()) as PutBlobResult
+          const newBlob = (await response.json()) as PutBlobResult //挿入した画像のurl帰ってくる
 
-          setBlob(newBlob) //newBlob.url情報をデータベースに保存
-          const picture = await fetch(`/api/file?url=${newBlob.url}`, {
-            method: 'GET',
-          })
-          console.log(picture.url)
-          setPcurl(picture.url)
+          setBlob(newBlob)
+          //url,imgurl,title,を作成時はidで挿入 idはurlから取得
+          //この三つの値をpostまたはeditへ
+          //urlあるかどうか確認
+
+          //url,imgurl,title,を作成時はidで挿入 idはurlから取得
+          //このidはimgid
+          if (
+            inputTitleRef.current?.value &&
+            inputUrlRef.current?.value &&
+            newBlob.url &&
+            id &&
+            inputFileRef.current?.files
+          ) {
+            await editWork(
+              String(id),
+              inputTitleRef.current?.value,
+              inputUrlRef.current.value,
+              newBlob.url
+            )
+            inputTitleRef.current.value = ''
+            inputUrlRef.current.value = ''
+            inputFileRef.current.files = null
+          }
         }}
       >
         <input name="file" ref={inputFileRef} type="file" required />
         <input
           type="text"
           id="name"
-          name="name"
+          name="url"
+          className="box-border"
+          placeholder="urlを貼り付けてください"
+          ref={inputUrlRef}
+          required
+        />
+        <input
+          type="text"
+          id="name"
+          name="title"
           className="box-border"
           placeholder="タイトル入力してください"
           required
+          ref={inputTitleRef}
         />
         <button type="submit">Upload</button>
       </form>
