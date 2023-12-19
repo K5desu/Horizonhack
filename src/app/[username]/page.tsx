@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { All } from './works/getuserwork'
+import { All } from '@/app/api/user_works/getuserwork'
 export default async function UserProfilePage({ params }: { params: { username: string } }) {
   const Allwork = await All(params.username)
   let Workcount

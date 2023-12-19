@@ -70,7 +70,7 @@ model Article {
   tags TechTag[]
 
   created_at DateTime @default(now())
-  updated_At DateTime @updatedAt
+  updated_at DateTime @updatedAt
 }
 
 model Comment {
@@ -110,7 +110,7 @@ model TagUser_state {
 
 model TagUser {
   id           Int     @id @default(autoincrement())
-  user_author2 User    @relation(fields: [user_id], references: [id])
+  user_author User    @relation(fields: [user_id], references: [id])
   tag_author   TechTag @relation(fields: [tag_id], references: [id])
   user_id      String
   tag_id       Int

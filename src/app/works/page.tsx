@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { All } from './getAllWork'
+import { All } from '@/app/api/works/getAllWork'
 
 export default async function AllFilesPage() {
   const blobs = await All()

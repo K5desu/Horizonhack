@@ -52,7 +52,7 @@ CREATE TABLE "Article" (
     "body" TEXT,
     "authorId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_At" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Article_pkey" PRIMARY KEY ("id")
 );

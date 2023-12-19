@@ -1,11 +1,12 @@
 'use server'
 import Link from 'next/link'
-import { All } from './getuserwork'
+import { All } from '@/app/api/user_works/getuserwork'
+import { getServerSession } from 'next-auth'
 
 export default async function UserWorksPage({ params }: { params: { username: string } }) {
   const Allwork = await All(params.username)
 
-  const userid = 'ブラウザ上のuserId情報'
+  const session = await getServerSession()
 
   return (
     <>
@@ -20,7 +21,7 @@ export default async function UserWorksPage({ params }: { params: { username: st
             {work.url && (
               <>
                 <Link href={work.url}>{work.img && <img src={work.img} alt="Notfound"></img>}</Link>
-                {work.authorId == userid && (
+                {work.authorId == session?.user.id && (
                   <Link href={`../../works/${work.id}/edit`}>編集する</Link>
                 )}
               </>

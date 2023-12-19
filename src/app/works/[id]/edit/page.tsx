@@ -2,16 +2,15 @@
 
 import type { PutBlobResult } from '@vercel/blob'
 import { useState, useRef } from 'react'
-
-import { useParams } from 'next/navigation'
-import { editWork } from './edit'
-
-export default function AvatarUploadPage() {
+import { editWork } from '@/app/api/works/edit/edit'
+import { notFound } from '@/app/api/works/edit/404'
+export default function AvatarUploadPage({ params }: { params: { id: string } }) {
   const inputFileRef = useRef<HTMLInputElement>(null)
   const inputUrlRef = useRef<HTMLInputElement>(null)
   const inputTitleRef = useRef<HTMLInputElement>(null)
   const [blob, setBlob] = useState<PutBlobResult | null>(null)
-  const { id } = useParams() //動的ルーティングのid取得
+  const id = params.id
+  //動的ルーティングのid取得
 
   return (
     <>
@@ -21,7 +20,11 @@ export default function AvatarUploadPage() {
         onSubmit={async (event) => {
           //blobに画像データpost
           event.preventDefault()
-
+          const notfound = await notFound(String(id))
+          if (notfound == 'no') {
+            console.log(notfound)
+            return { notFound: true }
+          }
           if (!inputFileRef.current?.files) {
             throw new Error('No file selected')
           }
@@ -42,13 +45,22 @@ export default function AvatarUploadPage() {
 
           //url,imgurl,title,を作成時はidで挿入 idはurlから取得
           //このidはimgid
-          if (inputTitleRef.current?.value && inputUrlRef.current?.value && newBlob.url && id) {
+          if (
+            inputTitleRef.current?.value &&
+            inputUrlRef.current?.value &&
+            newBlob.url &&
+            id &&
+            inputFileRef.current?.files
+          ) {
             await editWork(
               String(id),
               inputTitleRef.current?.value,
               inputUrlRef.current.value,
               newBlob.url
             )
+            inputTitleRef.current.value = ''
+            inputUrlRef.current.value = ''
+            inputFileRef.current.files = null
           }
         }}
       >
