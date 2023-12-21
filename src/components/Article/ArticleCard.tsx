@@ -15,13 +15,52 @@ interface ArticleProps {
   }[]
 }
 
+const timeAgo = (date: Date) => {
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffMinutes = Math.floor(diffMs / 60000)
+  const diffHours = Math.floor(diffMinutes / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  let displayDate = ''
+
+  if (diffDays >= 7) {
+    if (date.getFullYear() !== now.getFullYear()) {
+      displayDate = date.toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    } else {
+      displayDate = date.toLocaleDateString('ja-JP', {
+        month: 'short',
+        day: 'numeric',
+      })
+    }
+  } else if (diffDays > 0) {
+    displayDate = `${diffDays}日前`
+  } else if (diffHours > 0) {
+    displayDate = `${diffHours}時間前`
+  } else if (diffMinutes > 0) {
+    displayDate = `${diffMinutes}分前`
+  } else {
+    displayDate = 'たった今'
+  }
+
+  return (
+    <time dateTime={date.toISOString()} className="text-xs text-gray-800 dark:text-gray-50">
+      {displayDate}
+    </time>
+  )
+}
+
 export default function ArticleCard({ data }: { data: ArticleProps }) {
   const urlArticle = `${data.author?.name || ''}/articles/${data.id}`
   const urlAuthor = `${data.author?.name}`
 
   return (
     <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-white border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
-      <h2 className="flex text-lg text-gray-700 capitalize dark:text-white font-bold">
+      <h2 className="flex text-lg text-gray-700 normal-case dark:text-white font-bold">
         <a href={urlArticle} className="no-underline underline-offset-1 hover:underline z-10">
           {data.title}
         </a>
@@ -52,17 +91,11 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
               tabIndex={-1}
               className="no-underline underline-offset-1 hover:underline"
             >
-              {data.author.name}
+              @ {data.author.name}
             </a>
           </div>
         </div>
-        <time dateTime={data.created_at.toISOString()} className="text-xs">
-          {data.created_at.toLocaleDateString('ja-JP', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}
-        </time>
+        {timeAgo(data.created_at)}
       </div>
       <a href={urlArticle} tabIndex={-1} className="absolute inset-0" />
     </article>
