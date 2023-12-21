@@ -12,7 +12,7 @@ export default function PostBtn() {
   return (
     <Menu as="div" className="relative ml-3 shrink-0">
       <div>
-        <Menu.Button className="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <Menu.Button className="flex rounded-md bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           <span className="sr-only">Open post menu</span>
           <span>投稿</span>
           <PaperAirplaneIcon className="h-4 w-4 ml-1 my-auto -mr-1" aria-hidden="true" />
