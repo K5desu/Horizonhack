@@ -16,7 +16,7 @@ import { usePathname } from 'next/navigation'
 let navigation = [
   { name: 'Articles', href: '/', current: true },
   { name: 'Works', href: '/works', current: false },
-  { name: 'Admin', href: '/admin', current: false },
+  // { name: 'Admin', href: '/admin', current: false },
 ]
 
 export default function Header({ session }: { session: any }) {

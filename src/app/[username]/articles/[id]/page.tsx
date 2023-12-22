@@ -3,38 +3,44 @@ import Inner from '@/components/Inner'
 import Image from 'next/image'
 import Markdown from '@/components/Article/Markdown'
 import Tag from '@/components/Tag'
+import { notFound } from 'next/navigation'
 
 export default async function UserArticlePage({
   params,
 }: {
   params: { username: string; id: string }
 }) {
-  const article = await prisma.article.findUniqueOrThrow({
-    where: {
-      id: params.id,
-    },
-    select: {
-      id: true,
-      title: true,
-      body: true,
-      created_at: true,
-      updated_At: true,
-      author: {
-        select: {
-          name: true,
-          image: true,
+  let article = null
+  try {
+    article = await prisma.article.findUniqueOrThrow({
+      where: {
+        id: params.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        created_at: true,
+        updated_at: true,
+        author: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+        tags: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-      tags: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  })
+    })
+  } catch (error) {
+    return notFound()
+  }
 
-  const formatbody = article.body.replace(/\\`/g, '`')
+  const formatbody = article.body?.replace(/\\`/g, '`')
 
   return (
     <>
@@ -64,9 +70,9 @@ export default async function UserArticlePage({
             </span>
             <span>
               <span>更新日:</span>
-              {article.updated_At && (
-                <time dateTime={article.updated_At.toISOString()}>
-                  {article.updated_At.toLocaleDateString('ja-JP', {
+              {article.updated_at && (
+                <time dateTime={article.updated_at.toISOString()}>
+                  {article.updated_at.toLocaleDateString('ja-JP', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -101,12 +107,9 @@ export default async function UserArticlePage({
                 {article.author.name}
               </a>
             </div>
-            <time dateTime={article.created_at.toISOString()} className="text-xs">
-              {article.created_at.toLocaleDateString()}
-            </time>
           </div>
         </header>
-        <Markdown markdown={formatbody} />
+        <Markdown markdown={formatbody || ''} />
       </Inner>
     </>
   )

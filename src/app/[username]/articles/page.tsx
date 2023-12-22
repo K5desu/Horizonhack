@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function UserArticlesPage({ params }: { params: { username: string } }) {
+export default async function UserArticlesPage({ params }: { params: { username: string } }) {
   return (
     <>
       <Link href={`../${params.username}`}>戻る</Link> <br />
