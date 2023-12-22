@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-export const notFound = async (id: string) => {
+export const notFounds = async (id: string) => {
   try {
     await prisma.work.findFirstOrThrow({
       where: {

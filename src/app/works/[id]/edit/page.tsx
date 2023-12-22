@@ -3,12 +3,15 @@
 import type { PutBlobResult } from '@vercel/blob'
 import { useState, useRef } from 'react'
 import { editWork } from '@/app/api/works/edit/edit'
-import { notFound } from '@/app/api/works/edit/404'
+import { notFounds } from '@/app/api/works/edit/404'
+import { useRouter } from 'next/navigation'
+import { notFound } from 'next/navigation'
 export default function AvatarUploadPage({ params }: { params: { id: string } }) {
   const inputFileRef = useRef<HTMLInputElement>(null)
   const inputUrlRef = useRef<HTMLInputElement>(null)
   const inputTitleRef = useRef<HTMLInputElement>(null)
   const [blob, setBlob] = useState<PutBlobResult | null>(null)
+  const router = useRouter()
   const id = params.id
   //動的ルーティングのid取得
 
@@ -20,11 +23,13 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
         onSubmit={async (event) => {
           //blobに画像データpost
           event.preventDefault()
-          const notfound = await notFound(String(id))
+          const notfound = await notFounds(String(id))
           if (notfound == 'no') {
             console.log(notfound)
-            return { notFound: true }
+            router.push('urlに直打ちしないで/誰ですか？')
+            notFound()
           }
+
           if (!inputFileRef.current?.files) {
             throw new Error('No file selected')
           }

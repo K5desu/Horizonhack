@@ -1,12 +1,15 @@
 'use server'
 import Link from 'next/link'
-import { All } from '@/app/api/user_works/getuserwork'
+import { Allw } from '@/app/api/user_works/getuserwork'
 import { getServerSession } from 'next-auth'
-
+import { userId } from '@/app/api/user_works/getuserId'
 export default async function UserWorksPage({ params }: { params: { username: string } }) {
-  const Allwork = await All(params.username)
-
+  let authorId: any
   const session = await getServerSession()
+  if (session?.user.email) {
+    authorId = await userId(session?.user.email)
+  }
+  const Allwork = await Allw(authorId.id)
 
   return (
     <>
@@ -16,14 +19,17 @@ export default async function UserWorksPage({ params }: { params: { username: st
       <p>{params.username} / works /</p> <br />
       <p>リンク例</p>
       {Allwork != 'No works' &&
-        Allwork.work.map((work) => (
+        Allwork.map((work) => (
           <div key={work.url}>
             {work.url && (
               <>
-                <Link href={work.url}>{work.img && <img src={work.img} alt="Notfound"></img>}</Link>
-                {work.authorId == session?.user.id && (
+                <h1>{work.title}</h1>
+                <h2>作成日:{String(work.created_at)}</h2>
+                <h2>更新日:{String(work.updated_last)}</h2>
+                {work.authorId == authorId.id && (
                   <Link href={`../../works/${work.id}/edit`}>編集する</Link>
                 )}
+                <Link href={work.url}>{work.img && <img src={work.img} alt="Notfound"></img>}</Link>
               </>
             )}
           </div>

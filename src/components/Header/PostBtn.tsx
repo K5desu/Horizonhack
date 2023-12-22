@@ -2,10 +2,11 @@ import { Fragment } from 'react'
 
 import { Menu, Transition } from '@headlessui/react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { PostWork } from '@/app/api/createpost/create'
 
 const postOptions = [
-  { name: '記事を作成', href: '/articles/[id]/edit' },
-  { name: '成果物を作成', href: '/works/[id]/edit' },
+  { name: '記事を作成', url: 'articles' },
+  { name: '成果物を作成', url: 'works' },
 ]
 
 export default function PostBtn() {
@@ -31,12 +32,12 @@ export default function PostBtn() {
           {postOptions.map((item) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
-                <a
-                  href={item.href}
+                <button
+                  onClick={async () => await PostWork(item.url)}
                   className={`${active ? 'bg-gray-100' : ''} block px-4 py-2 text-sm text-gray-700`}
                 >
                   {item.name}
-                </a>
+                </button>
               )}
             </Menu.Item>
           ))}
