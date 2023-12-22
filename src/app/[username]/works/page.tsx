@@ -3,13 +3,16 @@ import Link from 'next/link'
 import { Allw } from '@/app/api/user_works/getuserwork'
 import { getServerSession } from 'next-auth'
 import { userId } from '@/app/api/user_works/getuserId'
+import { userIdn } from '@/app/api/user_works/getuserIdn'
 export default async function UserWorksPage({ params }: { params: { username: string } }) {
   let authorId: any
+  let Allwork: any
   const session = await getServerSession()
   if (session?.user.email) {
     authorId = await userId(session?.user.email)
   }
-  const Allwork = await Allw(authorId.id)
+  const userid = await userIdn(params.username)
+  if (userid != 'No user') Allwork = await Allw(userid.id)
 
   return (
     <>
@@ -19,7 +22,7 @@ export default async function UserWorksPage({ params }: { params: { username: st
       <p>{params.username} / works /</p> <br />
       <p>リンク例</p>
       {Allwork != 'No works' &&
-        Allwork.map((work) => (
+        Allwork.map((work: any) => (
           <div key={work.url}>
             {work.url && (
               <>
