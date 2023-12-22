@@ -4,7 +4,9 @@ interface WorkProps {
   id: string
   title: string | null
   url: string | null
+  img: string | null
   created_at: Date
+  updated_at: Date
   author: {
     name: string | null
     image: string | null
