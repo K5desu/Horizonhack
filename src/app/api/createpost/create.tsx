@@ -26,7 +26,7 @@ export const PostWork = async (name: string) => {
         return 'error'
       }
 
-    redirect(`/${uniqueId}/edit`)
+    redirect(`/works/${uniqueId}/edit`)
   } else {
     if (email)
       try {
@@ -44,6 +44,6 @@ export const PostWork = async (name: string) => {
         return 'error'
       }
 
-    redirect(`/${name}/${uniqueId}/edit`)
+    redirect(`articles/${uniqueId}/edit`)
   }
 }
