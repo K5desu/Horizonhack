@@ -3,13 +3,15 @@ import Inner from '@/components/Inner'
 import Image from 'next/image'
 import Markdown from '@/components/Article/Markdown'
 import Tag from '@/components/Tag'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 
 export default async function UserArticlePage({
   params,
 }: {
   params: { username: string; id: string }
 }) {
+  const session = await getServerSession()
   let article = null
   try {
     article = await prisma.article.findUniqueOrThrow({
@@ -41,6 +43,52 @@ export default async function UserArticlePage({
   }
 
   const formatbody = article.body?.replace(/\\`/g, '`')
+  const comment = await prisma.comment.findMany({
+    where: {
+      articleId: article.id,
+    },
+    select: {
+      id: true,
+      comments: true,
+      created_at: true,
+      author: {
+        select: {
+          name: true,
+          image: true,
+        },
+      },
+    },
+  })
+
+  const postComment = async (formData: FormData) => {
+    'use server'
+    const rawFormData = {
+      comments: formData.get('comments') as string | null,
+      articleId: params.id as string,
+      authorId: session?.user.id as string,
+    }
+    console.log(rawFormData)
+    try {
+      const comment = await prisma.comment.create({
+        data: {
+          comments: rawFormData.comments as string,
+          author: {
+            connect: {
+              id: rawFormData.authorId as string,
+            },
+          },
+          article: {
+            connect: {
+              id: rawFormData.articleId as string,
+            },
+          },
+        },
+      })
+    } catch (error) {
+      return new Error('コメントの投稿に失敗しました。')
+    }
+    redirect(`/`)
+  }
 
   return (
     <>
@@ -110,6 +158,34 @@ export default async function UserArticlePage({
           </div>
         </header>
         <Markdown markdown={formatbody || ''} />
+        <h2>コメント</h2>
+        <section className="my-2 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
+          {comment.map((comment) => (
+            <div key={comment.id}>
+              <p className="text-gray-500 dark:text-gray-400">
+                {comment.author.name}: {comment.comments}
+              </p>
+            </div>
+          ))}
+          {comment.length === 0 && (
+            <p className="text-gray-500 dark:text-gray-400">
+              まだ、コメントがありません。投稿者を応援しましょう！
+            </p>
+          )}
+          <form action={postComment} className="flex mt-4">
+            <input
+              type="text"
+              name="comments"
+              className="py-3 px-4 block border w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+              placeholder="Comment input"
+              required
+            />
+            <input
+              type="submit"
+              className="text-gray-500 dark:text-gray-400 ml-2 py-3 px-4 block border rounded-lg border-gray-300"
+            />
+          </form>
+        </section>
       </Inner>
     </>
   )

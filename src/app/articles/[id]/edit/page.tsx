@@ -2,7 +2,7 @@ import Textarea from '@/components/Article/Textarea'
 import Inner from '@/components/Inner'
 import { getServerSession } from 'next-auth'
 import prisma from '@/lib/prisma'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 export default async function ArticlesIdEditPage({ params }: { params: { id: string } }) {
   const session = await getServerSession()
@@ -18,6 +18,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
         body: true,
         created_at: true,
         updated_at: true,
+        visibility: true,
         author: {
           select: {
             name: true,
@@ -43,9 +44,12 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
   const addArticle = async (formData: FormData) => {
     'use server'
     let id = params.id
+    const visibirity = formData.get('radio_visibility')
+
     const rawFormData = {
       title: formData.get('title'),
       body: formData.get('body'),
+      visibility: visibirity === 'public' ? true : false,
     }
 
     const article = await prisma.article.update({
@@ -55,8 +59,10 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
       data: {
         title: rawFormData.title as string,
         body: rawFormData.body as string,
+        visibility: rawFormData.visibility as boolean,
       },
     })
+    redirect(`/`)
   }
 
   const formatbody = article.body?.replace(/\\`/g, '`')
@@ -105,7 +111,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                   </div>
                 </div>
 
-                <div className="col-span-full">
+                {/* <div className="col-span-full">
                   <label
                     htmlFor="tags"
                     className="block text-md font-medium leading-6 text-gray-900 dark:text-gray-100"
@@ -120,7 +126,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                       + Add
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -139,8 +145,9 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                         id="radio_private"
                         name="radio_visibility"
                         type="radio"
+                        value="private"
                         className="h-4 w-4 border-gray-300 dark:border-gray-700 text-indigo-600 focus:ring-indigo-600"
-                        defaultChecked
+                        defaultChecked={article.visibility === false}
                       />
                       <label
                         htmlFor="push-everything"
@@ -154,7 +161,9 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                         id="radio_public"
                         name="radio_visibility"
                         type="radio"
+                        value="public"
                         className="h-4 w-4 border-gray-300 dark:border-gray-700 text-indigo-600 focus:ring-indigo-600"
+                        defaultChecked={article.visibility === true}
                       />
                       <label
                         htmlFor="radio_public"
