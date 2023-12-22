@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Tag from '../Tag'
 
 interface WorkProps {
   id: string
@@ -10,16 +9,12 @@ interface WorkProps {
     name: string | null
     image: string | null
   }
-  tags: {
-    id: number
-    name: string
-  }[]
 }
 
 export default function WorkCard({ data }: { data?: WorkProps }) {
   return (
     <div className="relative flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-      <a href="33" tabIndex={-1} className="absolute inset-0" />
+      <a href={data?.url ?? ''} tabIndex={-1} className="absolute inset-0" />
       <div className="relative">
         <span className="absolute -inset-0.5" />
         <Image
@@ -37,9 +32,7 @@ export default function WorkCard({ data }: { data?: WorkProps }) {
         <p className="text-md mt-1 text-gray-500 dark:text-gray-400">
           {data?.author.name ? data.author.name : 'Unknown'}
         </p>
-        <div className="flex flex-wrap mt-2">
-          <Tag name="Tag" />
-        </div>
+
         <div className="flex flex-wrap justify-between mt-2">
           <a href="#" className="relative text-xs text-gray-500 dark:text-gray-400 hover:underline">
             <span className="absolute -inset-0.5" />
