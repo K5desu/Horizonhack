@@ -5,6 +5,7 @@ import './globals.css'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '@/components/SessionProvider'
 import Header from '@/components/Header/Header'
+import Footer from '@/components/Footer/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,10 +18,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession()
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-full dark:bg-gray-950`}>
+      <body className={`${inter.className} min-h-screen flex flex-col dark:bg-gray-950`}>
         <SessionProvider>
           <Header session={session} />
-          {children}
+          <div className="flex-1">{children}</div>
+          <Footer />
         </SessionProvider>
       </body>
     </html>

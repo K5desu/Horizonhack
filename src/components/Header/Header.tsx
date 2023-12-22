@@ -16,7 +16,7 @@ import { usePathname } from 'next/navigation'
 let navigation = [
   { name: 'Articles', href: '/', current: true },
   { name: 'Works', href: '/works', current: false },
-  { name: 'Admin', href: '/admin', current: false },
+  // { name: 'Admin', href: '/admin', current: false },
 ]
 
 export default function Header({ session }: { session: any }) {
@@ -31,8 +31,8 @@ export default function Header({ session }: { session: any }) {
   ]
   return (
     <>
-      <header className="min-h-full sticky top-0 z-50">
-        <Disclosure as="nav" className="bg-gray-800">
+      <header className="min-h-full sticky top-0 z-50 shadow-sm border-b dark:border-gray-700">
+        <Disclosure as="nav" className="bg-slate-50 dark:bg-gray-900">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -51,11 +51,10 @@ export default function Header({ session }: { session: any }) {
                           <Link
                             key={item.name}
                             href={item.href}
-                            className={`
-                            ${
+                            className={`${
                               item.current
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                                ? 'text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-900 '
+                                : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                             } rounded-md px-3 py-2 text-sm font-medium`}
                             aria-current={item.current ? 'page' : undefined}
                           >
@@ -72,7 +71,7 @@ export default function Header({ session }: { session: any }) {
                         <>
                           <Menu as="div" className="relative ml-3">
                             <div>
-                              <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                              <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-200 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 ring-offset-gray-200 dark:focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">Open user menu</span>
                                 <Image
@@ -124,7 +123,7 @@ export default function Header({ session }: { session: any }) {
                       {!session && (
                         <button
                           onClick={() => signIn()}
-                          className="text-sm ml-3 font-semibold leading-6 item-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md"
+                          className="text-sm ml-3 font-semibold leading-6 item-center text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md"
                         >
                           Sign in <span aria-hidden="true">&rarr;</span>
                         </button>
@@ -133,7 +132,7 @@ export default function Header({ session }: { session: any }) {
                   </div>
                   {/* モバイル用メニュー表示ボタン */}
                   <div className="-mr-2 flex md:hidden">
-                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-800 p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 hover:text-gray dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-200 dark:focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -150,7 +149,7 @@ export default function Header({ session }: { session: any }) {
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   <SearchBar />
                 </div>
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3 border-t border-gray-300 dark:border-gray-700">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
@@ -158,8 +157,8 @@ export default function Header({ session }: { session: any }) {
                       href={item.href}
                       className={`${
                         item.current
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                          ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white'
+                          : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                       } block rounded-md px-3 py-2 text-base font-medium
                       `}
                       aria-current={item.current ? 'page' : undefined}
@@ -168,7 +167,7 @@ export default function Header({ session }: { session: any }) {
                     </Disclosure.Button>
                   ))}
                 </div>
-                <div className="border-t border-gray-700 pb-3 pt-4">
+                <div className=" pb-3 pt-4">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       <Image
@@ -180,10 +179,10 @@ export default function Header({ session }: { session: any }) {
                       />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">
-                        @{user?.name || 'unknown'}
+                      <div className="text-base font-medium leading-none text-gray-900 dark:text-white">
+                        @ {user?.name || 'unknown'}
                       </div>
-                      <div className="text-sm font-medium leading-none text-gray-400">
+                      <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">
                         {user?.email || 'unknown@horizon.com'}
                       </div>
                     </div>
@@ -196,7 +195,7 @@ export default function Header({ session }: { session: any }) {
                         href={item.href}
                         className={`${
                           item.name === 'Sign out' ? 'text-red-400 hover:text-red-300' : ''
-                        } block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white`}
+                        } block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                       >
                         {item.name}
                       </Disclosure.Button>
