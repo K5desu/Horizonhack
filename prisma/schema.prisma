@@ -66,19 +66,20 @@ model Article {
   body     String?
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
-
+  visibility Boolean?
   tags TechTag[]
-
+  comment Comment[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model Comment {
   id         Int      @id @default(autoincrement())
-  article_id Int
   comments   String
   author     User     @relation(fields: [authorId], references: [id])
   authorId   String
+  article    Article  @relation(fields: [articleId],references:[id])
+  articleId  String
   created_at DateTime @default(now())
 }
 

@@ -11,7 +11,9 @@ export default async function AllFilesPage() {
           <div key={blob.url}>
             {blob.url && (
               <Link href={blob.url}>
-                {blob.img && <img src={blob.img} alt="Notfound"></img>} {blob.author.name}-
+                <h1>タイトル:{blob.title}</h1>
+                <p>作成者:{blob.author.name}</p>
+                {blob.img && <img src={blob.img} alt="Notfound"></img>}
               </Link>
             )}
           </div>

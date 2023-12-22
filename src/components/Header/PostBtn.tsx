@@ -2,17 +2,18 @@ import { Fragment } from 'react'
 
 import { Menu, Transition } from '@headlessui/react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { PostWork } from '@/app/api/createpost/create'
 
 const postOptions = [
-  { name: '記事を作成', href: '/articles/[id]/edit' },
-  { name: '成果物を作成', href: '/works/[id]/edit' },
+  { name: '記事を作成', url: 'articles' },
+  { name: '成果物を作成', url: 'works' },
 ]
 
 export default function PostBtn() {
   return (
     <Menu as="div" className="relative ml-3 shrink-0">
       <div>
-        <Menu.Button className="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <Menu.Button className="flex rounded-md bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           <span className="sr-only">Open post menu</span>
           <span>投稿</span>
           <PaperAirplaneIcon className="h-4 w-4 ml-1 my-auto -mr-1" aria-hidden="true" />
@@ -31,12 +32,12 @@ export default function PostBtn() {
           {postOptions.map((item) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
-                <a
-                  href={item.href}
+                <button
+                  onClick={async () => await PostWork(item.url)}
                   className={`${active ? 'bg-gray-100' : ''} block px-4 py-2 text-sm text-gray-700`}
                 >
                   {item.name}
-                </a>
+                </button>
               )}
             </Menu.Item>
           ))}

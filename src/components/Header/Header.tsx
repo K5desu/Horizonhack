@@ -7,24 +7,31 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 import SearchBar from './SearchBar'
 import PostBtn from './PostBtn'
+import { usePathname } from 'next/navigation'
 
 let navigation = [
-  { name: 'Articles', href: '/articles', current: true },
+  { name: 'Articles', href: '/', current: true },
   { name: 'Works', href: '/works', current: false },
   { name: 'Admin', href: '/admin', current: false },
 ]
 
-export default function Header() {
-  const { data: session } = useSession()
+export default function Header({ session }: { session: any }) {
+  const pathname = usePathname()
+  navigation.map((item) => {
+    item.current = item.href === pathname
+  })
   const user = session?.user
-  const userNavigation = [{ name: 'Your Profile', href: `/${user?.name}` }, { name: 'Sign out' }]
+  const userNavigation = [
+    { name: 'Your Profile', href: `/${user?.name}` },
+    { name: 'Sign out', href: '/api/auth/signout' },
+  ]
   return (
     <>
-      <header className="min-h-full sticky top-0">
+      <header className="min-h-full sticky top-0 z-50">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -98,10 +105,7 @@ export default function Header() {
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
                                       <a
-                                        href={item.name === 'Sign out' ? '' : item.href}
-                                        onClick={
-                                          item.name === 'Sign out' ? () => signOut() : undefined
-                                        }
+                                        href={item.href}
                                         className={`${active ? 'bg-gray-100' : ''} ${
                                           item.name === 'Sign out' ? 'text-red-600' : ''
                                         } block px-4 py-2 text-sm text-gray-700`}
@@ -120,7 +124,7 @@ export default function Header() {
                       {!session && (
                         <button
                           onClick={() => signIn()}
-                          className="text-sm ml-3 font-semibold leading-6 item-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                          className="text-sm ml-3 font-semibold leading-6 item-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md"
                         >
                           Sign in <span aria-hidden="true">&rarr;</span>
                         </button>
@@ -189,7 +193,7 @@ export default function Header() {
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-                        href={item.name === 'Sign out' ? '' : item.href}
+                        href={item.href}
                         className={`${
                           item.name === 'Sign out' ? 'text-red-400 hover:text-red-300' : ''
                         } block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white`}
@@ -203,11 +207,6 @@ export default function Header() {
             </>
           )}
         </Disclosure>
-        {/* <div className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-          </div>
-        </div> */}
       </header>
     </>
   )

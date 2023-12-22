@@ -14,11 +14,12 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession()
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-full dark:bg-gray-950`}>
         <SessionProvider>
-          <Header />
+          <Header session={session} />
           {children}
         </SessionProvider>
       </body>
