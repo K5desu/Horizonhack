@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Allw } from '@/app/api/user_works/getuserwork'
 import { getServerSession } from 'next-auth'
 import { userId } from '@/app/api/user_works/getuserId'
-import { userIdn } from '@/app/api/user_works/getuserIdn'
+import { userIdn } from '@/app/api/user_works/getuserIdfromname'
 export default async function UserWorksPage({ params }: { params: { username: string } }) {
   let authorId: any
   let Allwork: any
