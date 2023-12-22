@@ -2,8 +2,7 @@ import Textarea from '@/components/Article/Textarea'
 import Inner from '@/components/Inner'
 import { getServerSession } from 'next-auth'
 import prisma from '@/lib/prisma'
-import { notFound, redirect } from 'next/navigation'
-import { raw } from '@prisma/client/runtime/library'
+import { notFound } from 'next/navigation'
 
 export default async function ArticlesIdEditPage({ params }: { params: { id: string } }) {
   const session = await getServerSession()
@@ -18,7 +17,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
         title: true,
         body: true,
         created_at: true,
-        updated_At: true,
+        updated_at: true,
         author: {
           select: {
             name: true,
@@ -60,7 +59,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
     })
   }
 
-  const formatbody = article.body.replace(/\\`/g, '`')
+  const formatbody = article.body?.replace(/\\`/g, '`')
   return (
     <>
       <Inner>
@@ -84,7 +83,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                       type="text"
                       id="input_title"
                       name="title"
-                      defaultValue={article.title}
+                      defaultValue={article.title || 'untitled'}
                       className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required
                     />
