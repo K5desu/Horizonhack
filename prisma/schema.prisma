@@ -65,7 +65,7 @@ model Article {
   body     String?
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
-  visibility Boolean?
+  visibility Boolean? @default(false)
   tags TechTag[]
   comment Comment[]
   created_at DateTime @default(now())
