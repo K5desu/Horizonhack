@@ -5,10 +5,28 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 import cuid from 'cuid'
-export const PostWork = async (name: string) => {
+
+async function countDraft(username: string | null | undefined) {
+  return await prisma.article.count({
+    where: {
+      author: {
+        name: username,
+      },
+      visibility: false,
+    },
+  })
+}
+
+export const Post = async (name: string) => {
   const session = await getServerSession()
+  const DraftsAmount = await countDraft(session?.user.name)
+
   const email = session?.user.email
   const uniqueId = cuid()
+
+  if (DraftsAmount > 9) {
+    return redirect(`/${session?.user.name}`)
+  }
   if (name == 'works') {
     if (email)
       try {
@@ -44,6 +62,6 @@ export const PostWork = async (name: string) => {
         return 'error'
       }
 
-    redirect(`articles/${uniqueId}/edit`)
+    redirect(`/articles/${uniqueId}/edit`)
   }
 }

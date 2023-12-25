@@ -55,11 +55,11 @@ const timeAgo = (date: Date) => {
 }
 
 export default function ArticleCard({ data }: { data: ArticleProps }) {
-  const urlArticle = `${data.author?.name || ''}/articles/${data.id}`
   const urlAuthor = `${data.author?.name || ''}`
+  const urlArticle = `${urlAuthor}/articles/${data.id}`
 
   return (
-    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-white border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
+    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-gray-50 border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
       <h2 className="flex text-lg text-gray-700 normal-case dark:text-white font-bold">
         <a href={urlArticle} className="no-underline underline-offset-1 hover:underline z-10">
           {data.title || 'Unknown'}
@@ -70,7 +70,7 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
           <Tag key={index} name={tag.name} />
         ))}
       </div>
-      <div className="relative flex justify-between items-center gap-x-2">
+      <div className="relative flex justify-between items-end gap-x-2">
         <div className="flex items-center gap-x-2">
           <a
             href={urlArticle || ''}

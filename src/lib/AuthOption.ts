@@ -18,6 +18,7 @@ export const authOptions: AuthOptions = {
         },
       },
       profile(profile) {
+        console.log(profile)
         const adminUserIds = process.env.ADMIN_USER_IDS?.split(',') ?? []
         const isAdmin = adminUserIds.includes(profile.id.toString())
         return {
@@ -50,6 +51,10 @@ export const authOptions: AuthOptions = {
       session.user.role = token.role
       return session
     },
+  },
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
   },
 }
 

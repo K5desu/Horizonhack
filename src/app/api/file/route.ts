@@ -18,7 +18,6 @@ export async function GET(request: Request) {
 
 export async function DELETE(request: Request) {
   const json = await request.json()
-  console.log({ json })
   await del(json.url)
 
   return NextResponse.json({})

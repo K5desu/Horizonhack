@@ -39,11 +39,13 @@ export default function Header({ session }: { session: any }) {
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
-                      />
+                      <Link href="/">
+                        <img
+                          className="h-8 w-8"
+                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                          alt="Your Company"
+                        />
+                      </Link>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -146,10 +148,10 @@ export default function Header({ session }: { session: any }) {
               </div>
               {/* モバイル用メニュー */}
               <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <div className="space-y-1 px-2 py-3 sm:px-3">
                   <SearchBar />
                 </div>
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3 border-t border-gray-300 dark:border-gray-700">
+                <div className="space-y-1 px-2 py-3 sm:px-3 border-y border-gray-300 dark:border-gray-700">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
@@ -167,41 +169,54 @@ export default function Header({ session }: { session: any }) {
                     </Disclosure.Button>
                   ))}
                 </div>
-                <div className=" pb-3 pt-4">
-                  <div className="flex items-center px-5">
-                    <div className="flex-shrink-0">
-                      <Image
-                        className="h-10 w-10 rounded-full"
-                        src={user?.image || ''}
-                        alt="your avater image"
-                        width={128}
-                        height={128}
-                      />
+                {session && (
+                  <div className=" pb-3 pt-4">
+                    <div className="flex items-center px-5">
+                      <div className="flex-shrink-0">
+                        <Image
+                          className="h-10 w-10 rounded-full"
+                          src={user?.image || ''}
+                          alt="your avater image"
+                          width={128}
+                          height={128}
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <div className="text-base font-medium leading-none text-gray-900 dark:text-white">
+                          @ {user?.name || 'unknown'}
+                        </div>
+                        <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">
+                          {user?.email || 'unknown@horizon.com'}
+                        </div>
+                      </div>
                     </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-gray-900 dark:text-white">
-                        @ {user?.name || 'unknown'}
-                      </div>
-                      <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">
-                        {user?.email || 'unknown@horizon.com'}
-                      </div>
+                    <div className="mt-3 space-y-1 px-2">
+                      {userNavigation.map((item) => (
+                        <Disclosure.Button
+                          key={item.name}
+                          as="a"
+                          href={item.href}
+                          className={`${
+                            item.name === 'Sign out' ? 'text-red-400 hover:text-red-300' : ''
+                          } block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                        >
+                          {item.name}
+                        </Disclosure.Button>
+                      ))}
                     </div>
                   </div>
-                  <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className={`${
-                          item.name === 'Sign out' ? 'text-red-400 hover:text-red-300' : ''
-                        } block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
+                )}
+                {!session && (
+                  <div className="space-y-1 px-2 py-3 sm:px-3">
+                    <Disclosure.Button
+                      as="a"
+                      onClick={() => signIn()}
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      Sign in
+                    </Disclosure.Button>
                   </div>
-                </div>
+                )}
               </Disclosure.Panel>
             </>
           )}

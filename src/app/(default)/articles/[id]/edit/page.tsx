@@ -3,6 +3,8 @@ import Inner from '@/components/Inner'
 import { getServerSession } from 'next-auth'
 import prisma from '@/lib/prisma'
 import { notFound, redirect } from 'next/navigation'
+import Link from 'next/link'
+import ArticleDeleteBtn from '@/components/Article/ArticleDeleteBtn'
 
 export default async function ArticlesIdEditPage({ params }: { params: { id: string } }) {
   const session = await getServerSession()
@@ -62,7 +64,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
         visibility: rawFormData.visibility as boolean,
       },
     })
-    redirect(`/`)
+    redirect(`/${session.user.name}/articles/${id}`)
   }
 
   const formatbody = article.body?.replace(/\\`/g, '`')
@@ -147,7 +149,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                         type="radio"
                         value="private"
                         className="h-4 w-4 border-gray-300 dark:border-gray-700 text-indigo-600 focus:ring-indigo-600"
-                        defaultChecked={article.visibility === false}
+                        defaultChecked={article.visibility === false || article.visibility === null}
                       />
                       <label
                         htmlFor="push-everything"
@@ -178,19 +180,23 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Save
-            </button>
+          <div className="mt-6 flex items-center justify-between gap-x-6">
+            <ArticleDeleteBtn articleId={params.id} />
+
+            <div className="flex items-center justify-between gap-x-6">
+              <Link
+                href={`/${session.user.name}`}
+                className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100"
+              >
+                戻る
+              </Link>
+              <button
+                type="submit"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                保存
+              </button>
+            </div>
           </div>
         </form>
       </Inner>

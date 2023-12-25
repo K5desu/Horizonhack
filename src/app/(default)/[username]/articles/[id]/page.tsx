@@ -5,6 +5,7 @@ import Markdown from '@/components/Article/Markdown'
 import Tag from '@/components/Tag'
 import { notFound, redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
+import Link from 'next/link'
 
 export default async function UserArticlePage({
   params,
@@ -24,6 +25,7 @@ export default async function UserArticlePage({
         body: true,
         created_at: true,
         updated_at: true,
+        visibility: true,
         author: {
           select: {
             name: true,
@@ -38,6 +40,11 @@ export default async function UserArticlePage({
         },
       },
     })
+    if (!article.visibility) {
+      if (article.author.name !== session?.user.name) {
+        return notFound()
+      }
+    }
   } catch (error) {
     return notFound()
   }
@@ -67,7 +74,6 @@ export default async function UserArticlePage({
       articleId: params.id as string,
       authorId: session?.user.id as string,
     }
-    console.log(rawFormData)
     try {
       const comment = await prisma.comment.create({
         data: {
@@ -161,30 +167,38 @@ export default async function UserArticlePage({
         <h2>コメント</h2>
         <section className="my-2 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
           {comment.map((comment) => (
-            <div key={comment.id}>
-              <p className="text-gray-500 dark:text-gray-400">
-                {comment.author.name}: {comment.comments}
+            <div key={comment.id} className="">
+              <p className="text-gray-500 dark:text-gray-400 flex">
+                <Link
+                  href={`/${comment.author.name}`}
+                  className="no-underline underline-offset-1 hover:underline flex-shrink-0"
+                >
+                  {comment.author.name}:&nbsp;
+                </Link>
+                <span className="flex-1 flex-grow-1">{comment.comments}</span>
               </p>
             </div>
           ))}
           {comment.length === 0 && (
             <p className="text-gray-500 dark:text-gray-400">
-              まだ、コメントがありません。投稿者を応援しましょう！
+              まだ、コメントがありません。{session && '投稿者を応援しましょう！'}
             </p>
           )}
-          <form action={postComment} className="flex mt-4">
-            <input
-              type="text"
-              name="comments"
-              className="py-3 px-4 block border w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-              placeholder="Comment input"
-              required
-            />
-            <input
-              type="submit"
-              className="text-gray-500 dark:text-gray-400 ml-2 py-3 px-4 block border rounded-lg border-gray-300"
-            />
-          </form>
+          {session && (
+            <form action={postComment} className="flex mt-4">
+              <input
+                type="text"
+                name="comments"
+                className="py-3 px-4 block border w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                placeholder="Comment input"
+                required
+              />
+              <input
+                type="submit"
+                className="text-gray-500 dark:text-gray-400 ml-2 py-3 px-4 block border rounded-lg border-gray-300"
+              />
+            </form>
+          )}
         </section>
       </Inner>
     </>

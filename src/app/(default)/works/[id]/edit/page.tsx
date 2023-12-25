@@ -28,7 +28,6 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
             event.preventDefault()
             const notfound = await notFounds(String(id))
             if (notfound == 'no') {
-              console.log(notfound)
               router.push('urlに直打ちしないで/誰ですか？')
               notFound()
             }
@@ -70,9 +69,6 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
               inputUrlRef.current.value = ''
               inputFileRef.current.files = null
             }
-            
-          
-            
           }}
         >
           <input name="file" ref={inputFileRef} type="file" required />
