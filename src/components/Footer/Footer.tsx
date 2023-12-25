@@ -5,7 +5,6 @@ export default function Footer() {
     <>
       <footer className="bg-white dark:bg-gray-900">
         <div className="container flex flex-col items-center justify-between px-4 sm:px-6 lg:px-8 py-6 mx-auto max-w-7xl space-y-4 sm:space-y-0 sm:flex-row">
-          {/* mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 */}
           <a href="#">
             {/* <img className="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="" /> */}
           </a>
@@ -19,7 +18,15 @@ export default function Footer() {
             <Link href="/K5desu" className="no-underline underline-offset-1 hover:underline">
               @K5desu
             </Link>
-            <span> in Horizon.</span>
+            <span> in </span>
+            <Link
+              href="https://github.com/Ryukoku-Horizon"
+              className="no-underline underline-offset-1 hover:underline"
+              rel="noreferrer noopener"
+            >
+              Horizon
+            </Link>
+            <span>.</span>
           </p>
 
           <div className="flex -mx-2">

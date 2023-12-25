@@ -4,8 +4,6 @@ import { prisma } from '@/lib/prisma'
 export const Answer = async (comment: string, articleId: string) => {
   const session = await getServerSession()
   const useremail = session?.user.email
-  console.log(comment)
-  console.log(useremail)
 
   if (useremail) {
     try {
@@ -20,7 +18,6 @@ export const Answer = async (comment: string, articleId: string) => {
         },
       })
     } catch (error) {
-      console.log('akann')
       return 'error'
     }
   }

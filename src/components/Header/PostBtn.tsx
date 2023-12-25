@@ -1,8 +1,10 @@
+'use client'
+
 import { Fragment } from 'react'
 
 import { Menu, Transition } from '@headlessui/react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { PostWork } from '@/app/api/createpost/create'
+import { Post } from '@/app/api/createpost/create'
 
 const postOptions = [
   { name: '記事を作成', url: 'articles' },
@@ -33,7 +35,7 @@ export default function PostBtn() {
             <Menu.Item key={item.name}>
               {({ active }) => (
                 <button
-                  onClick={async () => await PostWork(item.url)}
+                  onClick={async () => await Post(item.url)}
                   className={`${active ? 'bg-gray-100' : ''} block px-4 py-2 text-sm text-gray-700`}
                 >
                   {item.name}
