@@ -2,7 +2,7 @@
 Header Image
 ```
 
-:triangular_flag_on_post: [英語](https://github.com/Ryukoku-Horizon/2023-Hack-S-no1/edit/main/README.md) / [日本語](https://github.com/Ryukoku-Horizon/2023-Hack-S-no1/edit/main/README.ja-JP.md)
+:triangular_flag_on_post: [_英語_](https://github.com/Ryukoku-Horizon/2023-Hack-S-no1) / [_日本語_](README.ja-JP.md)
 
 # Link Mono - 日本語 🚀
 
