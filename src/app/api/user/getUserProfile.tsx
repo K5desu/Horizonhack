@@ -10,9 +10,11 @@ export default async function getUserProfile(username: string) {
       select: {
         id: true,
         name: true,
+        displayName: true,
         image: true,
       },
     })
+    if (!user) return notFound()
     return user
   } catch (error) {
     return notFound()

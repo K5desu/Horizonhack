@@ -1,7 +1,22 @@
 import prisma from '@/lib/prisma'
 
-export default async function getUserArticles(username: string, isCurrentUser?: boolean) {
+interface GetUserArticlesParams {
+  username: string
+  isCurrentUser?: boolean
+  page?: number
+  sort?: 'new' | 'old'
+}
+
+export default async function getUserArticles({
+  username,
+  isCurrentUser = false,
+  page = 1,
+  sort = 'new',
+}: GetUserArticlesParams) {
   try {
+    const pageSize = 10
+    const skip = (page - 1) * pageSize
+
     const articles = await prisma.article.findMany({
       where: {
         author: {
@@ -28,12 +43,15 @@ export default async function getUserArticles(username: string, isCurrentUser?: 
         },
       },
       orderBy: {
-        created_at: 'desc',
+        created_at: sort === 'new' ? 'desc' : 'asc',
       },
-      take: 10,
+      skip,
+      take: pageSize,
     })
+
     return articles
   } catch (error) {
-    return []
+    console.error('Error fetching user articles:', error)
+    throw error
   }
 }
