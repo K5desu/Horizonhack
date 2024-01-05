@@ -7,6 +7,7 @@ import { notFounds } from '@/app/api/works/edit/404'
 import { useRouter } from 'next/navigation'
 import { notFound } from 'next/navigation'
 import Inner from '@/components/Inner'
+import Uploader from '@/components/Work/uploader'
 
 export default function AvatarUploadPage({ params }: { params: { id: string } }) {
   const inputFileRef = useRef<HTMLInputElement>(null)
@@ -20,9 +21,9 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
   return (
     <>
       <Inner>
-        <h1>Upload Your Workimage</h1>
-
-        <form
+        <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Edit Work</h2>
+        <Uploader />
+        {/* <form
           onSubmit={async (event) => {
             //blobに画像データpost
             event.preventDefault()
@@ -96,7 +97,7 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
           <div>
             Blob url: <a href={blob.url}>{blob.url}</a>
           </div>
-        )}
+        )} */}
       </Inner>
     </>
   )
