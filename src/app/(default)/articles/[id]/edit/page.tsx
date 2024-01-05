@@ -1,18 +1,19 @@
-import Textarea from '@/components/Article/Textarea'
-import Inner from '@/components/Inner'
-import { getServerSession } from 'next-auth'
-import prisma from '@/lib/prisma'
-import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth'
+import { notFound, redirect } from 'next/navigation'
+import prisma from '@/lib/prisma'
+import Inner from '@/components/Inner'
+import Textarea from '@/components/Article/Textarea'
 import ArticleDeleteBtn from '@/components/Article/ArticleDeleteBtn'
 
 export default async function ArticlesIdEditPage({ params }: { params: { id: string } }) {
   const session = await getServerSession()
   let article = null
+  const articleId = params.id
   try {
     article = await prisma.article.findUniqueOrThrow({
       where: {
-        id: params.id,
+        id: articleId,
       },
       select: {
         id: true,
@@ -45,7 +46,6 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
 
   const addArticle = async (formData: FormData) => {
     'use server'
-    let id = params.id
     const visibirity = formData.get('radio_visibility')
 
     const rawFormData = {
@@ -56,7 +56,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
 
     const article = await prisma.article.update({
       where: {
-        id: id,
+        id: articleId,
       },
       data: {
         title: rawFormData.title as string,
@@ -64,20 +64,17 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
         visibility: rawFormData.visibility as boolean,
       },
     })
-    redirect(`/${session.user.name}/articles/${id}`)
+    redirect(`/${session.user.name}/articles/${articleId}`)
   }
 
   const formatbody = article.body?.replace(/\\`/g, '`')
   return (
     <>
       <Inner>
+        <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Edit Article</h2>
         <form action={addArticle}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
-              <h2 className="text-3xl font-semibold  text-gray-900 dark:text-gray-100">
-                Create new Article
-              </h2>
-
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
                   <label
@@ -133,7 +130,7 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
             </div>
 
             <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
-              <div className="mt-10 space-y-10">
+              <div className="space-y-10">
                 <fieldset>
                   <legend className="text-md font-semibold leading-6 text-gray-900 dark:text-gray-100">
                     Visibility
@@ -178,11 +175,46 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
                 </fieldset>
               </div>
             </div>
+
+            <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+              <div
+                className="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 dark:bg-red-800/10 dark:border-red-900 dark:text-red-500"
+                role="alert"
+              >
+                <div className="flex items-center">
+                  <div className="flex-1 flex">
+                    {/* <div className="flex-shrink-0">
+                      <svg
+                        className="flex-shrink-0 h-4 w-4 mt-0.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                        <path d="M12 9v4" />
+                        <path d="M12 17h.01" />
+                      </svg>
+                    </div> */}
+                    <div className="ms-4">
+                      <h3 className="text-sm font-semibold">Delete this article</h3>
+                      <div className="mt-1 text-sm text-red-700 dark:text-red-400">
+                        Once you delete this article, it cannot be recovered.
+                      </div>
+                    </div>
+                  </div>
+                  <ArticleDeleteBtn id={articleId} />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-6 flex items-center justify-between gap-x-6">
-            <ArticleDeleteBtn articleId={params.id} />
-
             <div className="flex items-center justify-between gap-x-6">
               <Link
                 href={`/${session.user.name}`}

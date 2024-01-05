@@ -16,7 +16,12 @@ const config: Config = {
     extend: {
       typography: {
         DEFAULT: {
-          css: {},
+          css: {
+            table: {
+              width: 'auto',
+              'border-collapse': 'collapse',
+            },
+          },
         },
       },
       backgroundImage: {

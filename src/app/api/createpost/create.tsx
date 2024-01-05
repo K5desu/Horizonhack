@@ -35,7 +35,7 @@ export const Post = async (name: string) => {
             email: email,
           },
           data: {
-            work: {
+            works: {
               create: [{ id: uniqueId }],
             },
           },
@@ -53,7 +53,7 @@ export const Post = async (name: string) => {
             email: email, //セッション情報からとってくる
           },
           data: {
-            article: {
+            articles: {
               create: [{ id: uniqueId }], //cuid
             },
           },

@@ -6,7 +6,7 @@ import RemarkGfm from 'remark-gfm'
 
 export default function Markdown({ markdown }: { markdown: string }) {
   return (
-    <div className="my-10 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
+    <div className="my-10 p-4 sm:p-6 lg:p-8 overflow-clip break-words rounded-md bg-slate-50 dark:bg-gray-900">
       <ReactMarkdown
         remarkPlugins={[RemarkGfm]}
         rehypePlugins={[RehypeHighlight]}

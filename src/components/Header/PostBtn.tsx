@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react'
 
-import { Menu, Transition } from '@headlessui/react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import { Post } from '@/app/api/createpost/create'
 
@@ -11,7 +11,7 @@ const postOptions = [
   { name: '成果物を作成', url: 'works' },
 ]
 
-export default function PostBtn() {
+export function PostBtn() {
   return (
     <Menu as="div" className="relative ml-3 shrink-0">
       <div>
@@ -46,5 +46,22 @@ export default function PostBtn() {
         </Menu.Items>
       </Transition>
     </Menu>
+  )
+}
+
+export function PostBtnMB() {
+  return (
+    <>
+      {postOptions.map((item) => (
+        <Disclosure.Button
+          key={item.name}
+          as="button"
+          onClick={async () => await Post(item.url)}
+          className="text-gray-600 hover:text-gray-900 dark:text-gray-50 dark:hover:text-white block w-full text-left rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 dark:hover:bg-gray-700"
+        >
+          {item.name}
+        </Disclosure.Button>
+      ))}
+    </>
   )
 }

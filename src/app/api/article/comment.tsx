@@ -12,8 +12,8 @@ export const Answer = async (comment: string, articleId: string) => {
           email: useremail,
         },
         data: {
-          comment: {
-            create: [{ articleId: articleId, comments: comment }],
+          comments: {
+            create: [{ articleId: articleId, body: comment }],
           },
         },
       })

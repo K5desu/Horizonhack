@@ -18,12 +18,12 @@ export const authOptions: AuthOptions = {
         },
       },
       profile(profile) {
-        console.log(profile)
         const adminUserIds = process.env.ADMIN_USER_IDS?.split(',') ?? []
         const isAdmin = adminUserIds.includes(profile.id.toString())
         return {
           id: profile.id.toString(),
-          name: profile.name ?? profile.login,
+          name: profile.login,
+          displayName: profile.name ?? null,
           email: profile.email ?? null,
           image: profile.avatar_url,
           role: isAdmin ? 'admin' : 'user',
@@ -31,6 +31,9 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
   callbacks: {
     // サインイン時の例外処理
     async signIn({ user, account, profile }) {
@@ -47,6 +50,8 @@ export const authOptions: AuthOptions = {
       return { ...token, ...user, ...account }
     },
     async session({ session, token }) {
+      session.user.name = token.name
+      session.user.displayName = token.displayName
       session.user.id = token.id
       session.user.role = token.role
       return session
@@ -54,7 +59,7 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: '/auth/signin',
-    signOut: '/auth/signout',
+    // signOut: '/auth/signout',
   },
 }
 
