@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import TimeAgo from '@/components/TimeAgo'
 
 interface WorkProps {
   id: string
@@ -6,52 +7,13 @@ interface WorkProps {
   url: string | null
   img: string | null
   created_at: Date
-  updated_at: Date
   author: {
     name: string | null
     image: string | null
   }
 }
-const timeAgo = (date: Date) => {
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMinutes = Math.floor(diffMs / 60000)
-  const diffHours = Math.floor(diffMinutes / 60)
-  const diffDays = Math.floor(diffHours / 24)
 
-  let displayDate = ''
-
-  if (diffDays >= 7) {
-    if (date.getFullYear() !== now.getFullYear()) {
-      displayDate = date.toLocaleDateString('ja-JP', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
-    } else {
-      displayDate = date.toLocaleDateString('ja-JP', {
-        month: 'short',
-        day: 'numeric',
-      })
-    }
-  } else if (diffDays > 0) {
-    displayDate = `${diffDays}日前`
-  } else if (diffHours > 0) {
-    displayDate = `${diffHours}時間前`
-  } else if (diffMinutes > 0) {
-    displayDate = `${diffMinutes}分前`
-  } else {
-    displayDate = 'たった今'
-  }
-
-  return (
-    <time dateTime={date.toISOString()} className="text-xs text-gray-800 dark:text-gray-50">
-      {displayDate}
-    </time>
-  )
-}
-
-export default function WorkCard({ data }: { data?: WorkProps }) {
+export default function WorkCard({ data }: { data: WorkProps }) {
   return (
     <div className="relative flex flex-col bg-gray-50 border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
       <a href={data?.url ?? ''} tabIndex={-1} className="absolute inset-0" />
@@ -86,7 +48,7 @@ export default function WorkCard({ data }: { data?: WorkProps }) {
             />
           </a>
           <p className="mt-5 text-xs text-gray-500 dark:text-gray-500">
-            {data?.created_at.toLocaleDateString() ? timeAgo(data.created_at) : 'Unknown'}
+            <TimeAgo date={data.created_at} />
           </p>
         </div>
       </div>

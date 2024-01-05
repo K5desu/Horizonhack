@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Tag from '@/components/Tag'
+import TimeAgo from '@/components/TimeAgo'
 
 interface ArticleProps {
   id: string
@@ -15,51 +16,12 @@ interface ArticleProps {
   }[]
 }
 
-const timeAgo = (date: Date) => {
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMinutes = Math.floor(diffMs / 60000)
-  const diffHours = Math.floor(diffMinutes / 60)
-  const diffDays = Math.floor(diffHours / 24)
-
-  let displayDate = ''
-
-  if (diffDays >= 7) {
-    if (date.getFullYear() !== now.getFullYear()) {
-      displayDate = date.toLocaleDateString('ja-JP', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
-    } else {
-      displayDate = date.toLocaleDateString('ja-JP', {
-        month: 'short',
-        day: 'numeric',
-      })
-    }
-  } else if (diffDays > 0) {
-    displayDate = `${diffDays}日前`
-  } else if (diffHours > 0) {
-    displayDate = `${diffHours}時間前`
-  } else if (diffMinutes > 0) {
-    displayDate = `${diffMinutes}分前`
-  } else {
-    displayDate = 'たった今'
-  }
-
-  return (
-    <time dateTime={date.toISOString()} className="text-xs text-gray-800 dark:text-gray-50">
-      {displayDate}
-    </time>
-  )
-}
-
 export default function ArticleCard({ data }: { data: ArticleProps }) {
   const urlAuthor = `${data.author?.name || ''}`
   const urlArticle = `${urlAuthor}/articles/${data.id}`
 
   return (
-    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-gray-50 border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
+    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-gray-50 border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
       <h2 className="flex text-lg text-gray-700 normal-case dark:text-white font-bold">
         <a href={urlArticle} className="no-underline underline-offset-1 hover:underline z-10">
           {data.title || 'Unknown'}
@@ -79,8 +41,8 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
             <span className="absolute -inset-0.5" />
             <Image
               src={data.author.image || ''}
-              width={32}
-              height={32}
+              width={72}
+              height={72}
               className="object-cover w-8 h-8 rounded-full"
               alt="Writer's profile image"
             />
@@ -91,11 +53,11 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
               tabIndex={-1}
               className="no-underline underline-offset-1 hover:underline"
             >
-              @ {data.author.name}
+              @{data.author.name}
             </a>
           </div>
         </div>
-        {timeAgo(data.created_at) || ''}
+        <TimeAgo date={data.created_at} />
       </div>
       <a href={urlArticle} tabIndex={-1} className="absolute inset-0" />
     </article>
