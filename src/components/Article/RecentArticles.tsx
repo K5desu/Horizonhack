@@ -26,9 +26,9 @@ export default async function RecentArticles() {
     orderBy: {
       created_at: 'desc',
     },
-    take: -10,
+    take: 10,
   })
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  // await new Promise((resolve) => setTimeout(resolve, 5000))
 
   return (
     <>

@@ -15,8 +15,14 @@ interface WorkProps {
 
 export default function WorkCard({ data }: { data: WorkProps }) {
   return (
-    <div className="relative flex flex-col bg-gray-50 border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-      <a href={data?.url ?? ''} tabIndex={-1} className="absolute inset-0" />
+    <div className="relative flex flex-col bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
+      <a
+        href={data?.url ?? ''}
+        tabIndex={-1}
+        className="absolute inset-0 z-10"
+        target="_blank"
+        rel="noopener noreferrer"
+      />
       <div className="relative">
         <span className="absolute -inset-0.5" />
         <Image
@@ -29,14 +35,17 @@ export default function WorkCard({ data }: { data: WorkProps }) {
       </div>
       <div className="p-4 md:p-5">
         <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-          {data?.title ? data.title : 'Unknown'}
+          {data?.title ? data.title : 'Untitled'}
         </h3>
         <p className="text-md mt-1 text-gray-500 dark:text-gray-400">
           {data?.author.name ? data.author.name : 'Unknown'}
         </p>
 
         <div className="flex flex-wrap justify-between mt-2">
-          <a href="#" className="relative text-xs text-gray-500 dark:text-gray-400 hover:underline">
+          <a
+            href={`/${data.author.name}` ?? ''}
+            className="relative text-xs text-gray-500 dark:text-gray-400 hover:underline"
+          >
             <span className="absolute -inset-0.5" />
             <span className="sr-only">Open user menu</span>
             <Image

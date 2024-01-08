@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
 import Inner from '@/components/Inner'
 import Textarea from '@/components/Article/Textarea'
-import ArticleDeleteBtn from '@/components/Article/ArticleDeleteBtn'
+import ArticleDeleteBtn from '@/components/Article/DeleteBtn'
 
 export default async function ArticlesIdEditPage({ params }: { params: { id: string } }) {
   const session = await getServerSession()

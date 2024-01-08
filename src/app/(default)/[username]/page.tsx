@@ -44,7 +44,7 @@ export default async function UserProfilePage({ params: { username } }: UserProf
   return (
     <>
       <Inner>
-        <header className="rounded-md border bg-gray-50 dark:bg-gray-900 p-4 lg:p-6">
+        <header className="rounded-md overflow-hidden border bg-gray-50 dark:bg-gray-900 p-4 lg:p-6">
           <div className="flex flex-col items-center flex-wrap gap-x-4 sm:flex-row">
             <div className="relative w-24 h-24 rounded-full">
               <span className="absolute -inset-0.5" />
@@ -119,35 +119,34 @@ export default async function UserProfilePage({ params: { username } }: UserProf
         <section className="my-3 grid grid-cols-1 gap-4 md:grid-cols-2">
           <Suspense fallback={<ArticleCardSkeletons />}>
             <UserArticles username={username} />
+            {usersState.ArticleAmount > 10 && (
+              <div className="w-full flex justify-center md:col-start-1 md:col-end-3">
+                <Link
+                  href={`/${username}/articles`}
+                  className="w-full max-w-lg py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                >
+                  もっと見る
+                </Link>
+              </div>
+            )}
           </Suspense>
         </section>
-        {usersState.ArticleAmount > 10 && (
-          <div className="w-full flex justify-center">
-            <Link
-              href={`/${username}/articles`}
-              className="w-full max-w-lg py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            >
-              もっと見る
-            </Link>
-          </div>
-        )}
         <h3 className="text-xl mt-4 font-bold text-gray-800 dark:text-gray-50">制作物</h3>
         <section className="my-3 grid grid-cols-1 xs:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <Suspense fallback={<WorkCardSkeletons />}>
             <UserWorks username={username} />
+            {usersState.WorkAmount > 10 && (
+              <div className="w-full flex justify-center md:col-start-1 md:col-end-3">
+                <Link
+                  href={`/${username}/works`}
+                  className="w-full max-w-lg py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                >
+                  もっと見る
+                </Link>
+              </div>
+            )}
           </Suspense>
-          <WorkCardSkeletons />
         </section>
-        {usersState.WorkAmount > 10 && (
-          <div className="w-full flex justify-center">
-            <Link
-              href={`/${username}/works`}
-              className="w-full max-w-lg py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            >
-              もっと見る
-            </Link>
-          </div>
-        )}
       </Inner>
     </>
   )

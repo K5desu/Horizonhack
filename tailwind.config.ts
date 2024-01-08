@@ -17,9 +17,51 @@ const config: Config = {
       typography: {
         DEFAULT: {
           css: {
+            h1: {
+              fontSize: '1.875rem',
+              lineHeight: '2.25rem',
+              fontWeight: '700',
+              paddingBottom: '0.5rem',
+              borderBottom: '1px solid #e2e8f0',
+            },
+            h2: {
+              fontWeight: '600',
+              paddingBottom: '0.5rem',
+              borderBottom: '1px solid #e2e8f0',
+            },
+            h3: {
+              fontWeight: '600',
+            },
+            h4: {
+              fontWeight: '600',
+            },
+            h5: {
+              fontWeight: '600',
+            },
             table: {
               width: 'auto',
               'border-collapse': 'collapse',
+              'overflow-x': 'auto',
+            },
+            pre: {
+              position: 'relative',
+            },
+            a: {
+              color: '#3182ce',
+              '&:hover': {
+                color: '#2c5282',
+              },
+            },
+            code: {
+              padding: '0.2em 0.4em',
+              background: '#e2e8f0',
+              borderRadius: '0.25rem',
+            },
+            'code::before': {
+              content: 'none',
+            },
+            'code::after': {
+              content: 'none',
             },
           },
         },
