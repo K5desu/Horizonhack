@@ -21,10 +21,10 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
   const urlArticle = `${urlAuthor}/articles/${data.id}`
 
   return (
-    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-gray-50 border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
+    <article className="relative flex gap-2 p-4 lg:p-5 flex-col bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
       <h2 className="flex text-lg text-gray-700 normal-case dark:text-white font-bold">
         <a href={urlArticle} className="no-underline underline-offset-1 hover:underline z-10">
-          {data.title || 'Unknown'}
+          {data.title || 'Untitled'}
         </a>
       </h2>
       <div className="relative flex w-auto flex-wrap gap-2">

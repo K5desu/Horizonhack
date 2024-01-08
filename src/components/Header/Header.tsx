@@ -153,7 +153,7 @@ export default function Header({ session }: { session: any }) {
                 <div className="space-y-1 px-2 py-3 sm:px-3">
                   <SearchBar />
                 </div>
-                <div className="space-y-1 px-2 py-3 sm:px-3 border-y border-gray-300 dark:border-gray-700">
+                <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}

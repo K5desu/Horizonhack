@@ -12,25 +12,24 @@ export default async function UserArticles({ username }: UserArticlesProps) {
   const isCurrentUser = session?.user?.name === username
   const articles = await getUserArticles({ username: username, isCurrentUser: isCurrentUser })
 
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  // await new Promise((resolve) => setTimeout(resolve, 5000))
   return (
     <>
       {articles.map((article) => (
-        <div className="relative" key={article.id}>
+        <div className="relative group" key={article.id}>
           <ArticleCard data={article} />
           {isCurrentUser && (
             <>
               <Link
-                className="absolute top-2 right-2 text-xs rounded-lg px-1.5 py-1 text-white bg-gray-600/30 dark:bg-gray-600/60 no-underline underline-offset-1 hover:underline"
+                className={`${
+                  article.visibility
+                    ? 'bg-green-600/50 dark:bg-green-600/60'
+                    : 'bg-gray-600/50 dark:bg-gray-600/60'
+                } absolute top-2 right-2 text-xs rounded-lg px-1.5 py-1 text-white no-underline underline-offset-1 hover:underline`}
                 href={`/articles/${article.id}/edit`}
               >
                 編集
               </Link>
-              <span
-                className={`${
-                  article.visibility ? 'bg-green-500' : 'bg-gray-500'
-                } absolute w-2 h-2 top-4 right-12 inline-block rounded-full`}
-              ></span>
             </>
           )}
         </div>

@@ -41,12 +41,16 @@ export default function Textarea({ defaultValue }: { defaultValue?: string }) {
   const handleBlur = () => {
     if (textareaRef.current && textareaRef.current.scrollHeight > 100 && lineCount >= 6) {
       textareaRef.current.style.height = '136px'
+      textareaRef.current.style.overflowY = 'auto'
     }
     setIsFocused(false)
   }
 
   const handleFocus = () => {
     adjustHeight()
+    if (textareaRef.current) {
+      textareaRef.current.style.overflowY = 'hidden'
+    }
     setIsFocused(true)
   }
 

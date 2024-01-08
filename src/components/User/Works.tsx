@@ -12,7 +12,7 @@ export default async function UserWorks({ username }: UserWorksProps) {
   const isCurrentUser = session?.user?.name === username
   const works = await getUserWorks({ username: username, isCurrentUser: isCurrentUser })
 
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  // await new Promise((resolve) => setTimeout(resolve, 5000))
   return (
     <>
       {works.map((work) => (
@@ -20,7 +20,11 @@ export default async function UserWorks({ username }: UserWorksProps) {
           <WorkCard data={work} />
           {session?.user.name === username && (
             <Link
-              className="absolute text-xs rounded-lg p-1 bg-gray-600/30 text-white top-2 right-2 no-underline underline-offset-1 hover:underline"
+              className={`${
+                work.visibility
+                  ? 'bg-green-600/50 dark:bg-green-600/60'
+                  : 'bg-gray-600/50 dark:bg-gray-600/60'
+              } absolute top-2 right-2 text-xs rounded-lg px-1.5 py-1 text-white no-underline underline-offset-1 hover:underline`}
               href={`/works/${work.id}/edit`}
             >
               編集

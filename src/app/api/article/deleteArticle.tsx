@@ -10,8 +10,9 @@ export const DeleteArticle = async (id: string) => {
         id: id,
       },
     })
-    return redirect('/')
   } catch (error) {
+    console.log(error)
     return error
   }
+  redirect('/')
 }

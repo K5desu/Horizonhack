@@ -136,7 +136,7 @@ export default async function UserArticlePage({
           </div>
         </header>
         <Markdown markdown={formatbody || 'undefined'} />
-        <h2>コメント</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">コメント</h2>
         <section className="my-2 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
           {comments.map((comment) => (
             <div key={comment.id} className="">
