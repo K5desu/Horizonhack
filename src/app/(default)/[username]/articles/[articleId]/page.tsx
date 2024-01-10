@@ -39,7 +39,7 @@ const getArticle = cache(async (articleId: string) => {
       },
     },
   })
-  await delay(9000)
+  // await delay(9000)
 
   if (!article) return notFound()
   return article
@@ -73,7 +73,7 @@ export default async function UserArticlePage({
   return (
     <>
       <Inner>
-        <header>
+        <header className="relative">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{article?.title}</h1>
           {article?.tags && article?.tags.length > 0 && (
             <div className="flex items-center gap-x-2 mt-4">
@@ -134,6 +134,14 @@ export default async function UserArticlePage({
               </a>
             </div>
           </div>
+          {sessionUserName === username && (
+            <Link
+              href={`/articles/${articleId}/edit`}
+              className="absolute top-0 right-0 text-xs bg-blue-500 text-white px-2 py-1 rounded-xl"
+            >
+              編集
+            </Link>
+          )}
         </header>
         <Markdown markdown={formatbody || 'undefined'} />
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">コメント</h2>

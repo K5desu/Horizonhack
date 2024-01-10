@@ -236,13 +236,10 @@ export default async function ArticlesIdEditPage({ params }: { params: { id: str
   )
 }
 function forbidden() {
-  {
-    ;`
-  <div className="flex flex-col items-center justify-center h-screen">
-    <h1 className="text-3xl font-semibold text-gray-900">403</h1>
-    <p className="mt-2 text-sm text-gray-500">
-      You are not authorized to access this page.
-    </p>
-  `
-  }
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-semibold text-gray-900 dark:text-gray-100">403</h1>
+      <p className="mt-2 text-md text-gray-500">You are not authorized to access this page.</p>
+    </div>
+  )
 }
