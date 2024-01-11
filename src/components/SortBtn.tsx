@@ -26,7 +26,7 @@ export default function SortBtn({ sort }: { sort: 'new' | 'old' | undefined }) {
     return `${pathname}?${params.toString()}`
   }
 
-  const [selectedSort, setSelectedSort] = useState(sort === 'new' ? sorts[0] : sorts[1])
+  const [selectedSort, setSelectedSort] = useState(sort === 'old' ? sorts[1] : sorts[0])
   return (
     <Listbox value={selectedSort} onChange={setSelectedSort}>
       {({ open }) => (
