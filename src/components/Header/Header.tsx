@@ -11,7 +11,7 @@ import { signIn } from 'next-auth/react'
 
 import SearchBar from './SearchBar'
 import { PostBtn, PostBtnMB } from './PostBtn'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 let navigation = [
   { name: 'Articles', href: '/', current: true },
@@ -68,7 +68,7 @@ export default function Header({ session }: { session: any }) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-3 flex items-center md:ml-6">
-                      <SearchBar />
+                      {pathname !== '/search' && <SearchBar />}
                       {session && (
                         <>
                           <Menu as="div" className="relative ml-3">
@@ -105,7 +105,7 @@ export default function Header({ session }: { session: any }) {
                                 {userNavigation.map((item) => (
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
-                                      <a
+                                      <Link
                                         href={item.href}
                                         className={`${active ? 'bg-gray-100' : ''} ${
                                           item.name === 'Sign out'
@@ -114,7 +114,7 @@ export default function Header({ session }: { session: any }) {
                                         } block px-4 py-2 text-sm`}
                                       >
                                         {item.name}
-                                      </a>
+                                      </Link>
                                     )}
                                   </Menu.Item>
                                 ))}
@@ -150,9 +150,11 @@ export default function Header({ session }: { session: any }) {
               </div>
               {/* モバイル用メニュー */}
               <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 py-3 sm:px-3">
-                  <SearchBar />
-                </div>
+                {pathname !== '/search' && (
+                  <div className="space-y-1 px-2 py-3 sm:px-3">
+                    <SearchBar />
+                  </div>
+                )}
                 <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
                   {navigation.map((item) => (
                     <Disclosure.Button

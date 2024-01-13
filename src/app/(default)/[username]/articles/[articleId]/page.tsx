@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth'
 
 import Inner from '@/components/Inner'
 import Markdown from '@/components/Article/Markdown'
-import Tag from '@/components/Tag'
+import Tag from '@/components/Tag/Tag'
 import CommentForm from '@/components/Article/CommentForm'
 
 import getComments from '@/app/api/article/getComments'
@@ -111,7 +111,7 @@ export default async function UserArticlePage({
             </span>
           </div>
           <div className="flex items-center gap-x-2 mt-4">
-            <a
+            <Link
               href={`/${article?.id}`}
               className="relative w-8 h-8 rounded-full z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
             >
@@ -123,15 +123,15 @@ export default async function UserArticlePage({
                 className="object-cover w-8 h-8 rounded-full"
                 alt="Writer's profile image"
               />
-            </a>
+            </Link>
             <div className="text-xs text-gray-700 capitalize z-10 dark:text-white">
-              <a
+              <Link
                 href={`/${article?.author.name}`}
                 tabIndex={-1}
                 className="no-underline underline-offset-1 hover:underline"
               >
                 @{article?.author.name}
-              </a>
+              </Link>
             </div>
           </div>
           {sessionUserName === username && (

@@ -116,7 +116,7 @@ export default async function UserProfilePage({ params: { username } }: UserProf
             </div>
           )}
         </div>
-        <section className="my-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <section className="relative my-3 grid grid-cols-1 gap-4 md:grid-cols-2">
           <Suspense fallback={<ArticleCardSkeletons />}>
             <UserArticles username={username} />
             {usersState.ArticleAmount > 10 && (

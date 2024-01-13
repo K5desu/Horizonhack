@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import TimeAgo from '@/components/TimeAgo'
+import Link from 'next/link'
 
 interface WorkProps {
   id: string
@@ -42,7 +43,7 @@ export default function WorkCard({ data }: { data: WorkProps }) {
         </p>
 
         <div className="flex flex-wrap justify-between mt-2">
-          <a
+          <Link
             href={`/${data.author.name}` ?? ''}
             className="relative text-xs text-gray-500 dark:text-gray-400 hover:underline"
           >
@@ -55,7 +56,7 @@ export default function WorkCard({ data }: { data: WorkProps }) {
               width={128}
               height={128}
             />
-          </a>
+          </Link>
           <p className="mt-5 text-xs text-gray-500 dark:text-gray-500">
             <TimeAgo date={data.created_at} />
           </p>
