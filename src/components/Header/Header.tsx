@@ -29,6 +29,7 @@ export default function Header({ session }: { session: any }) {
     { name: 'Your Profile', href: `/${user?.name}` },
     { name: 'Sign out', href: '/api/auth/signout' },
   ]
+  const isEditPage = pathname.match(/\/articles\/.+\/edit/) || pathname.match(/\/works\/.+\/edit/)
   return (
     <>
       <header className="min-h-full sticky top-0 z-50 shadow-sm border-b dark:border-gray-700">
@@ -121,7 +122,7 @@ export default function Header({ session }: { session: any }) {
                               </Menu.Items>
                             </Transition>
                           </Menu>
-                          <PostBtn />
+                          {!isEditPage && <PostBtn />}
                         </>
                       )}
                       {!session && (
@@ -174,9 +175,11 @@ export default function Header({ session }: { session: any }) {
                 </div>
                 {session && (
                   <>
-                    <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
-                      <PostBtnMB />
-                    </div>
+                    {!isEditPage && (
+                      <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
+                        <PostBtnMB />
+                      </div>
+                    )}
                     <div className="py-3">
                       <div className="flex items-center px-5 mt-4">
                         <div className="flex-shrink-0">
