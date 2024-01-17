@@ -190,7 +190,7 @@ export default async function SearchPage({
                 <input type="hidden" name="target" value={searchParams?.target} />
                 <input
                   type="text"
-                  className="rounded-md pl-10 pr-4 py-2 w-full border bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white"
+                  className="rounded-md pl-10 pr-4 py-2 w-full border dark:border-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 placeholder-gray-400 focus:outline-none"
                   placeholder="検索"
                   name="search"
                   defaultValue={searchParams?.q}

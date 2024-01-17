@@ -21,7 +21,7 @@ export default function ThemaSwitchBtn() {
       aria-label="Toggle Dark Mode"
       name="theme"
       id="theme"
-      className="p-1 flex rounded-md border hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="p-1 flex rounded-md border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
       <div className="relative">
