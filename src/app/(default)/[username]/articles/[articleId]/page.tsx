@@ -1,4 +1,4 @@
-import { cache } from 'react'
+import { Suspense, cache } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -7,11 +7,11 @@ import { getServerSession } from 'next-auth'
 import Inner from '@/components/Inner'
 import Markdown from '@/components/Article/Markdown'
 import Tag from '@/components/Tag/Tag'
-import CommentForm from '@/components/Article/CommentForm'
+import AddCommentForm from '@/components/Article/Comment/AddForm'
 
-import getComments from '@/app/api/article/getComments'
 import prisma from '@/lib/prisma'
 import { Metadata } from 'next'
+import Comments from '@/components/Article/Comment/Comments'
 
 interface ArticlePageProps {
   params: {
@@ -39,7 +39,6 @@ const getArticle = cache(async (articleId: string) => {
       },
     },
   })
-  // await delay(9000)
 
   if (!article) return notFound()
   return article
@@ -68,7 +67,6 @@ export default async function UserArticlePage({
   }
 
   const formatbody = article?.body?.replace(/\\`/g, '`')
-  const comments = await getComments(articleId)
 
   return (
     <>
@@ -112,7 +110,7 @@ export default async function UserArticlePage({
           </div>
           <div className="flex items-center gap-x-2 mt-4">
             <Link
-              href={`/${article?.id}`}
+              href={`/${article?.author.name}`}
               className="relative w-8 h-8 rounded-full z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
             >
               <span className="absolute -inset-0.5" />
@@ -146,25 +144,18 @@ export default async function UserArticlePage({
         <Markdown markdown={formatbody || 'undefined'} />
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">コメント</h2>
         <section className="my-2 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
-          {comments.map((comment) => (
-            <div key={comment.id} className="">
-              <p className="text-gray-500 dark:text-gray-400 flex">
-                <Link
-                  href={`/${comment.author.name}`}
-                  className="no-underline underline-offset-1 hover:underline flex-shrink-0"
-                >
-                  {comment.author.name}:&nbsp;
-                </Link>
-                <span className="flex-1 flex-grow-1">{comment.body}</span>
-              </p>
-            </div>
-          ))}
-          {comments.length === 0 && (
-            <p className="text-gray-500 dark:text-gray-400">
-              まだ、コメントがありません。{session && '投稿者を応援しましょう！'}
-            </p>
-          )}
-          {session && <CommentForm articleId={articleId} authorName={sessionUserName} />}
+          <Suspense fallback={<p className="text-gray-800 dark:text-white">読み込み中...</p>}>
+            <ul className="">
+              <Comments articleId={articleId} />
+            </ul>
+            {session && (
+              <AddCommentForm
+                articleId={articleId}
+                articleAuthor={article.author.name}
+                authorName={sessionUserName}
+              />
+            )}
+          </Suspense>
         </section>
       </Inner>
     </>
