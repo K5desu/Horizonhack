@@ -86,6 +86,7 @@ model Comment {
 model Work {
   id           String   @id @default(cuid())
   title        String?
+  description  String?
   url          String?
   img          String?
   author       User     @relation(fields: [authorId], references: [id])
@@ -97,7 +98,7 @@ model Work {
 
 model Tag {
   id         Int           @id @default(autoincrement())
-  name       String
+  name       String        @unique
   articles   Article[]
   users      TagsOnUsers[]
 }

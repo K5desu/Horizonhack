@@ -36,7 +36,38 @@ async function init() {
     ],
   })
 
-  console.log({ appOfficial, officialArticle, tagsOnUsers_StatusTypes })
+  const mainTagsList = [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'TypeScript',
+    'React',
+    'Vue',
+    'Angular',
+    'Node.js',
+    'Express',
+    'NestJS',
+    'Next.js',
+    'Nuxt.js',
+  ]
+  const tags = await prisma.tag.createMany({
+    data: mainTagsList.map((tagName) => ({ name: tagName })),
+  })
+
+  const work = await prisma.work.create({
+    data: {
+      title: 'LinkMono',
+      description: 'LinkMono の開発を行っています。',
+      url: 'https://github.com/Ryukoku-Horizon/2023-Hack-S-no1',
+      img: '/LinkMonoIcon.png',
+      visibility: true,
+      author: {
+        connect: { id: appOfficial.id },
+      },
+    },
+  })
+
+  console.log({ appOfficial, officialArticle, tagsOnUsers_StatusTypes, tags, work })
 }
 
 init()
