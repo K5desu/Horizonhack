@@ -16,6 +16,7 @@ export default async function SearchTags({
     where: {
       name: {
         contains: searchParams?.q,
+        mode: 'insensitive',
       },
     },
     select: {
@@ -28,35 +29,51 @@ export default async function SearchTags({
     skip,
     take: 10,
   })
-  const tagOnArticle = await prisma.article.count({
-    where: {
-      tags: {
-        some: {
-          name: {
-            contains: searchParams?.q,
+
+  const tagsWithCounts = await Promise.all(
+    tags.map(async (tag) => {
+      const tagOnArticle = await prisma.article.count({
+        where: {
+          tags: {
+            some: {
+              name: {
+                contains: tag.name,
+              },
+            },
           },
         },
-      },
-    },
-  })
-  const tagOnUser = await prisma.tagsOnUsers.count({
-    where: {
-      OR: [...tags.map((tag) => ({ tagId: tag.id }))],
-    },
-  })
+      })
+      const tagOnUser = await prisma.tagsOnUsers.count({
+        where: {
+          tagId: tag.id,
+        },
+      })
+
+      return {
+        ...tag,
+        tagOnArticle,
+        tagOnUser,
+      }
+    })
+  )
+
   return (
     <>
-      {tags.map((tag) => (
-        <Link href={`/tags/${tag.name}`} key={tag.id}>
-          <div className="flex items-center justify-between p-4 border-b">
+      {tagsWithCounts.map((tag, index) => (
+        <Link href={`/tags/${tag.name}`} key={tag.id} className="group">
+          <div
+            className={`flex items-center justify-between p-4 border-t ${
+              index === tagsWithCounts.length - 1 ? 'border-b' : ''
+            } border-gray-300 dark:border-gray-700`}
+          >
             <div className="flex items-center">
               <div className="flex items-center justify-center w-10 h-10 mr-4 bg-gray-200 rounded-full">
                 <p className="text-2xl font-bold text-gray-500">#</p>
               </div>
               <div>
-                <p className="text-lg font-bold">{tag.name}</p>
+                <p className="text-lg font-bold group-hover:underline">{tag.name}</p>
                 <p className="text-sm text-gray-500">
-                  Use in {tagOnArticle} articles, {tagOnUser} users
+                  Use in {tag.tagOnArticle} articles, {tag.tagOnUser} users
                 </p>
               </div>
             </div>

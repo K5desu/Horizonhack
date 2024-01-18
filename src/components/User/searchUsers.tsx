@@ -43,11 +43,13 @@ export default async function SearchUsers({
 
   return (
     <>
-      {users.map((user) => (
+      {users.map((user, index) => (
         <Link
           key={user.id}
           href={`/${user.name}`}
-          className="flex w-full items-center py-2 border-b hover:bg-gray-100 dark:hover:bg-gray-800 transition group"
+          className={`flex w-full items-center py-2 border-t ${
+            index === users.length - 1 ? 'border-b' : ''
+          } border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition group`}
         >
           <Image
             src={user.image || ''}
@@ -65,7 +67,7 @@ export default async function SearchUsers({
             </span>
           </div>
           <div className="ml-auto">
-            <span className="text-gray-500 dark:text-gray-400 text-sm">
+            <span className="text-gray-500 dark:text-gray-400 text-sm mx-2">
               {user.role === 'official' && '公式'}
               {user.role === 'admin' && '管理者'}
             </span>

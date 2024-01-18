@@ -102,6 +102,7 @@ export default async function SearchPage({
     where: {
       name: {
         contains: searchWord,
+        mode: 'insensitive',
       },
     },
   })
@@ -303,14 +304,14 @@ export default async function SearchPage({
             )}
             {targets[2].isActive && (
               <>
-                <main className="relative my-3 border-t">
+                <main className="relative my-3">
                   <SearchUsers searchParams={searchParams} />
                 </main>
               </>
             )}
             {targets[3].isActive && (
               <>
-                <main className="relative my-3 border-t">
+                <main className="relative my-3">
                   <SearchTags searchParams={searchParams} />
                 </main>
               </>

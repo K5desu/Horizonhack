@@ -7,6 +7,7 @@ export const All = async () => {
       select: {
         id: true,
         title: true,
+        description: true,
         url: true,
         img: true,
         created_at: true,
