@@ -17,13 +17,13 @@ interface WorkProps {
 
 export default function WorkCard({ data }: { data: WorkProps }) {
   return (
-    <div className="relative flex flex-col bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
-      <div className="relative">
+    <div className="relative flex flex-col h-full bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
+      <div className="relative flex bg-gray-200 dark:bg-slate-800 h-fit ">
         <span className="absolute -inset-0.5" />
         <Image
           width={512}
           height={512}
-          className="w-full h-auto max-h-48 rounded-t-xl object-cover"
+          className="w-full object-cover h-56"
           src={data?.img ?? '/test-image-unsplash.jpg'}
           alt="Work image"
         />
