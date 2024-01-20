@@ -8,6 +8,7 @@ import Textarea from '@/components/Article/Edit/Textarea'
 import DeleteForm from '@/components/Article/Edit/DeleteForm'
 import { AnounceGuideLine } from '@/components/Anounce'
 import { TagInput } from '@/components/Tag/TagInput'
+import toast from 'react-hot-toast'
 
 function SubmitButton({
   isInputFilled,
@@ -70,28 +71,29 @@ export default function ArticleEditForm({ article }: { article: Article }) {
   const initialTags = article.tags.map((tag) => tag.name)
   const initialVisibility = article.visibility || false
 
-  const [title, setTitle] = useState(article.title || '')
-  const [body, setBody] = useState(formatbody || '')
-  const [tags, setTags] = useState(article.tags.map((tag) => tag.name))
-  const [visibility, setVisibility] = useState(article.visibility || false)
+  const [title, setTitle] = useState(initialTitle)
+  const [body, setBody] = useState(initialBody)
+  const [tags, setTags] = useState(initialTags)
+  const [visibility, setVisibility] = useState(initialVisibility)
   const [isButtonDisabled, setButtonDisabled] = useState(true)
 
   useEffect(() => {
     if (
-      (title && title !== initialTitle) ||
-      (body && body !== initialBody) ||
-      tags.toString() !== initialTags.toString() ||
-      visibility !== initialVisibility
+      title === initialTitle &&
+      body === initialBody &&
+      tags.toString() === initialTags.toString() &&
+      visibility === initialVisibility
     ) {
-      setButtonDisabled(false)
-    } else {
       setButtonDisabled(true)
+    } else {
+      setButtonDisabled(false)
     }
   }, [title, body, tags, visibility, initialTitle, initialBody, initialTags, initialVisibility])
 
   useEffect(() => {
     if (state.message === 'success') {
       window.location.href = `/${article.author.name}/articles/${articleId}`
+      toast.success('記事を更新しました')
     }
   }, [state.message, article.author.name, articleId])
 
@@ -101,7 +103,6 @@ export default function ArticleEditForm({ article }: { article: Article }) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    console.log(event.target)
 
     if (tags.length === 0) {
       alert('１つ以上のタグが必須です')
@@ -131,7 +132,8 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                     id="input_title"
                     name="title"
                     defaultValue={article.title || ''}
-                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                    placeholder="記事のタイトルを入力"
                     required
                     onChange={(e) => setTitle(e.target.value)}
                   />
@@ -252,7 +254,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
               <div className="ms-4">
                 <h3 className="text-sm font-semibold">記事の削除</h3>
                 <div className="mt-1 text-sm text-red-700 dark:text-red-400">
-                  記事を削除すると、元に戻すことはできません
+                  一度削除すると、元に戻すことはできません
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import prisma from '@/lib/prisma'
 import Inner from '@/components/Inner'
 import ArticleEditForm from '@/components/Article/Edit/Form'
