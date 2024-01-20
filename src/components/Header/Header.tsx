@@ -32,7 +32,7 @@ export default function Header({ session }: { session: any }) {
   const isEditPage = pathname.match(/\/articles\/.+\/edit/) || pathname.match(/\/works\/.+\/edit/)
   return (
     <>
-      <header className="min-h-full sticky top-0 z-50 shadow-sm border-b dark:border-gray-700">
+      <header className="sticky top-0 z-50 min-h-full border-b shadow-sm dark:border-gray-700">
         <Disclosure as="nav" className="bg-slate-50 dark:bg-gray-900">
           {({ open }) => (
             <>
@@ -41,10 +41,12 @@ export default function Header({ session }: { session: any }) {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <Link href="/">
-                        <img
+                        <Image
                           className="h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                          alt="Your Company"
+                          src="/Linkmonoicon.png"
+                          alt="Our Product"
+                          width={128}
+                          height={128}
                         />
                       </Link>
                     </div>
@@ -56,7 +58,7 @@ export default function Header({ session }: { session: any }) {
                             href={item.href}
                             className={`${
                               item.current
-                                ? 'text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-900 '
+                                ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white '
                                 : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                             } rounded-md px-3 py-2 text-sm font-medium`}
                             aria-current={item.current ? 'page' : undefined}
@@ -74,7 +76,7 @@ export default function Header({ session }: { session: any }) {
                         <>
                           <Menu as="div" className="relative ml-3">
                             <div>
-                              <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-200 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 ring-offset-gray-200 dark:focus:ring-offset-gray-800">
+                              <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-200 text-sm ring-offset-gray-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-gray-800 dark:focus:ring-white dark:focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">Open user menu</span>
                                 <Image
@@ -96,7 +98,7 @@ export default function Header({ session }: { session: any }) {
                               leaveTo="transform opacity-0 scale-95"
                             >
                               <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div className="block break-words px-4 py-2 text-sm text-gray-700 font-medium border-b border-gray-200">
+                                <div className="block break-words border-b border-gray-200 px-4 py-2 text-sm font-medium text-gray-700">
                                   <span>@{user?.name || 'unknown'}</span> <br />
                                   <span className="text-xs text-gray-400">
                                     {user?.email || 'unknown@horizon.com'}
@@ -128,7 +130,7 @@ export default function Header({ session }: { session: any }) {
                       {!session && (
                         <button
                           onClick={() => signIn()}
-                          className="text-sm ml-3 font-semibold leading-6 item-center text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md"
+                          className="item-center ml-3 rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                         >
                           Sign in <span aria-hidden="true">&rarr;</span>
                         </button>
@@ -137,7 +139,7 @@ export default function Header({ session }: { session: any }) {
                   </div>
                   {/* モバイル用メニュー表示ボタン */}
                   <div className="-mr-2 flex md:hidden">
-                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-800 p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 hover:text-gray dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-200 dark:focus:ring-offset-gray-800">
+                    <Disclosure.Button className="hover:text-gray relative inline-flex items-center justify-center rounded-md bg-gray-200 p-2 text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:ring-offset-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-white dark:focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -156,7 +158,7 @@ export default function Header({ session }: { session: any }) {
                     <SearchBar />
                   </div>
                 )}
-                <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
+                <div className="space-y-1 border-b border-gray-300 px-2 py-3 dark:border-gray-700 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
@@ -176,12 +178,12 @@ export default function Header({ session }: { session: any }) {
                 {session && (
                   <>
                     {!isEditPage && (
-                      <div className="space-y-1 px-2 py-3 sm:px-3 border-b border-gray-300 dark:border-gray-700">
+                      <div className="space-y-1 border-b border-gray-300 px-2 py-3 dark:border-gray-700 sm:px-3">
                         <PostBtnMB />
                       </div>
                     )}
                     <div className="py-3">
-                      <div className="flex items-center px-5 mt-4">
+                      <div className="mt-4 flex items-center px-5">
                         <div className="flex-shrink-0">
                           <Image
                             className="h-10 w-10 rounded-full"
