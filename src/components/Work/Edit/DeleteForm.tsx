@@ -2,10 +2,13 @@
 
 import { useFormState, useFormStatus } from 'react-dom'
 import { deleteWork } from '@/app/api/work/edit/EditActions'
+import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const initialState = {
   message: '',
   id: '',
+  username: '',
 }
 
 function DeleteButton() {
@@ -28,21 +31,19 @@ function DeleteButton() {
 export default function DeleteForm({ id }: { id: string }) {
   const [state, formAction] = useFormState(deleteWork, initialState)
 
-  if (state.message === 'success') {
-    window.location.href = '/'
-  }
+  useEffect(() => {
+    if (state.message === 'success') {
+      toast.success('成果物を削除しました。')
+      window.location.href = `/${state.username}`
+    } else if (state.message === 'error') {
+      toast.error('成果物の削除に失敗しました。')
+    }
+  }, [state.message, state.username])
+
   return (
     <form action={formAction}>
       <input type="hidden" name="workId" value={id} />
       <DeleteButton />
-      <p>
-        {state.message === 'success' && (
-          <span className="text-sm text-gray-500">成果物を削除しました。</span>
-        )}
-        {state.message === 'error' && (
-          <span className="text-sm text-red-500">成果物の削除に失敗しました。</span>
-        )}
-      </p>
     </form>
   )
 }

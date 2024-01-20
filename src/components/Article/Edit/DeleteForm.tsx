@@ -2,10 +2,13 @@
 
 import { useFormState, useFormStatus } from 'react-dom'
 import { deleteArticle } from '@/app/api/article/edit/EditActions'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const initialState = {
   message: '',
   id: '',
+  username: '',
 }
 
 function DeleteButton() {
@@ -28,21 +31,19 @@ function DeleteButton() {
 export default function DeleteForm({ id }: { id: string }) {
   const [state, formAction] = useFormState(deleteArticle, initialState)
 
-  if (state.message === 'success') {
-    window.location.href = '/'
-  }
+  useEffect(() => {
+    if (state.message === 'success') {
+      toast.success('記事を削除しました。')
+      window.location.href = `/${state.username}`
+    } else if (state.message === 'error') {
+      toast.error('記事の削除に失敗しました。')
+    }
+  }, [state.message, state.username])
+
   return (
     <form action={formAction}>
       <input type="hidden" name="articleId" value={id} />
       <DeleteButton />
-      <p>
-        {state.message === 'success' && (
-          <span className="text-sm text-gray-500">記事を削除しました。</span>
-        )}
-        {state.message === 'error' && (
-          <span className="text-sm text-red-500">記事の削除に失敗しました。</span>
-        )}
-      </p>
     </form>
   )
 }

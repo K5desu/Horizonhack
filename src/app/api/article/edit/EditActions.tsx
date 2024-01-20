@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 
 export async function updateArticle(
@@ -68,6 +69,7 @@ export async function deleteArticle(
   const rawFormData = {
     articleId: formData.get('articleId') as string,
   }
+  const session = await getServerSession()
   try {
     const deletedComments = await prisma.comment.deleteMany({
       where: {
@@ -79,7 +81,7 @@ export async function deleteArticle(
         id: rawFormData.articleId,
       },
     })
-    return { message: 'success', id: rawFormData.articleId }
+    return { message: 'success', id: rawFormData.articleId, username: session?.user.name }
   } catch (error) {
     return { message: 'error', id: '' }
   }

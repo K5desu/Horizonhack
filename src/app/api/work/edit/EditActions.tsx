@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { del } from '@vercel/blob'
+import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 
 export async function updateWork(
@@ -49,6 +50,7 @@ export async function deleteWork(
   const rawFormData = {
     workId: formData.get('workId') as string,
   }
+  const session = await getServerSession()
   try {
     const work = await prisma.work.findUniqueOrThrow({
       where: {
@@ -66,7 +68,7 @@ export async function deleteWork(
         id: rawFormData.workId,
       },
     })
-    return { message: 'success', id: String(rawFormData.workId) }
+    return { message: 'success', id: String(rawFormData.workId), username: session?.user.name }
   } catch (error) {
     return { message: 'error', id: '' }
   }
