@@ -293,7 +293,6 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     name="visibility"
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-300 text-gray-600 focus:ring-gray-500"
-                    checked={visibility}
                     defaultChecked={visibility}
                     onChange={(event) => setVisibility(event.target.checked)}
                   />

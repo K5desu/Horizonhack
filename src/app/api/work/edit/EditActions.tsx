@@ -58,7 +58,9 @@ export async function deleteWork(
         img: true,
       },
     })
-    await del(work.img ?? '')
+    if (work.img) {
+      await del(work.img)
+    }
     await prisma.work.delete({
       where: {
         id: rawFormData.workId,
