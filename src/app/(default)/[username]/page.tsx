@@ -143,7 +143,7 @@ export default async function UserProfilePage({ params: { username } }: UserProf
           <Suspense fallback={<WorkCardSkeletons />}>
             <UserWorks username={username} />
             {usersState.WorkAmount > 10 && (
-              <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+              <div className="flex w-full justify-center xs:col-start-1 xs:col-end-3 md:col-end-4 lg:col-end-5">
                 <Link
                   href={`/${username}/works`}
                   className="inline-flex w-full max-w-lg items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"

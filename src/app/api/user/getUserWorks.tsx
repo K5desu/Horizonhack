@@ -52,34 +52,3 @@ export default async function getUserWorks({
     throw error
   }
 }
-
-// async function getUserWorksAll(username: string) {
-//   try {
-//     const works = await prisma.work.findMany({
-//       where: {
-//         author: {
-//           name: username,
-//         },
-//       },
-//       select: {
-//         id: true,
-//         title: true,
-//         url: true,
-//         img: true,
-//         created_at: true,
-//         author: {
-//           select: {
-//             name: true,
-//             image: true,
-//           },
-//         },
-//       },
-//       orderBy: {
-//         created_at: 'desc',
-//       },
-//       take: -10,
-//     })
-//     return works
-//   } catch (error) {
-//     return []
-//   }
