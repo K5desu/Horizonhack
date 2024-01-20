@@ -1,4 +1,4 @@
-import { put } from '@vercel/blob'
+import { put, del } from '@vercel/blob'
 import { NextResponse } from 'next/server'
 import { customAlphabet } from 'nanoid'
 
@@ -8,6 +8,10 @@ const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm
 export async function POST(req: Request) {
   const file = req.body || ''
   const contentType = req.headers.get('content-type') || 'text/plain'
+  const initialImage = req.headers.get('initial-image') || ''
+  if (initialImage) {
+    await del(initialImage)
+  }
   const filename = `${nanoid()}.${contentType.split('/')[1]}`
   const blob = await put(filename, file, {
     contentType,
