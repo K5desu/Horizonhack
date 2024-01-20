@@ -17,13 +17,13 @@ interface WorkProps {
 
 export default function WorkCard({ data }: { data: WorkProps }) {
   return (
-    <div className="relative flex flex-col h-full bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
-      <div className="relative flex bg-gray-200 dark:bg-slate-800 h-fit ">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-lg border bg-gray-50 shadow-none transition hover:shadow-md dark:border-gray-700 dark:bg-slate-900 dark:shadow-slate-700/[.7]">
+      <div className="relative flex h-fit bg-gray-200 dark:bg-slate-800 ">
         <span className="absolute -inset-0.5" />
         <Image
           width={512}
           height={512}
-          className="w-full object-cover h-56"
+          className="h-56 w-full object-cover"
           src={data?.img ?? '/test-image-unsplash.jpg'}
           alt="Work image"
         />
@@ -32,7 +32,7 @@ export default function WorkCard({ data }: { data: WorkProps }) {
         <h3 className="flex text-lg font-bold text-gray-800 dark:text-white">
           <Link
             href={data?.url ?? ''}
-            className="no-underline underline-offset-1 hover:underline z-10"
+            className="z-10 no-underline underline-offset-1 hover:underline"
           >
             {data?.title ? data.title : 'Untitled'}
           </Link>
@@ -41,10 +41,10 @@ export default function WorkCard({ data }: { data: WorkProps }) {
           {data?.description ? data.description : 'No description'}
         </p>
 
-        <div className="flex flex-wrap justify-between mt-2">
+        <div className="mt-2 flex flex-wrap justify-between">
           <Link
             href={`/${data.author.name}` ?? ''}
-            className="relative flex gap-x-2 text-xs items-center text-gray-500 dark:text-gray-400 z-10 hover:underline"
+            className="relative z-10 flex items-center gap-x-2 text-xs text-gray-500 hover:underline dark:text-gray-400"
           >
             <span className="absolute -inset-0.5" />
             <span className="sr-only">Open user menu</span>
@@ -55,7 +55,7 @@ export default function WorkCard({ data }: { data: WorkProps }) {
               width={128}
               height={128}
             />
-            <p className="flex text-md mt-1 text-gray-500 dark:text-gray-400 z-10 hover:underline">
+            <p className="text-md z-10 mt-1 flex text-gray-500 hover:underline dark:text-gray-400">
               @{data?.author.name ? data.author.name : 'Unknown'}
             </p>
           </Link>

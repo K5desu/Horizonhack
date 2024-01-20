@@ -126,9 +126,9 @@ export default async function AvatarUploadPage({ params }: { params: { id: strin
 
 function forbidden() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="text-4xl font-semibold text-gray-900 dark:text-gray-100">403</h1>
-      <p className="mt-2 text-md text-gray-500">You are not authorized to access this page.</p>
+      <p className="text-md mt-2 text-gray-500">You are not authorized to access this page.</p>
     </div>
   )
 }

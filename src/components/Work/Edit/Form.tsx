@@ -151,12 +151,12 @@ export default function WorkEditForm({ work }: { work: Work }) {
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <input type="hidden" name="workId" value={workId} />
-          <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-12 dark:border-gray-200/10">
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <label
                   htmlFor="title"
-                  className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   タイトル {'(必須)'}
                 </label>
@@ -165,7 +165,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     type="text"
                     id="input_title"
                     name="title"
-                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                     placeholder="作品のタイトルを入力"
                     value={title}
                     onChange={(event) => setTitle(event.target.value)}
@@ -176,7 +176,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
               <div className="col-span-full">
                 <label
                   htmlFor="description"
-                  className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   説明
                 </label>
@@ -185,7 +185,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     type="text"
                     id="input_description"
                     name="description"
-                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                     placeholder="作品の説明を入力"
                     value={description}
                     onChange={(event) => setDescription(event.target.value)}
@@ -196,7 +196,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
               <div className="col-span-full">
                 <label
                   htmlFor="url"
-                  className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   URL
                 </label>
@@ -205,7 +205,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     type="url"
                     id="input_url"
                     name="url"
-                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                     placeholder="https://example.com"
                     value={url}
                     onChange={(event) => setUrl(event.target.value)}
@@ -216,7 +216,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
               <div className="col-span-full">
                 <label
                   htmlFor="img"
-                  className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   画像
                 </label>
@@ -227,24 +227,24 @@ export default function WorkEditForm({ work }: { work: Work }) {
             </div>
           </div>
           {/* カードプレビュー */}
-          <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-12 dark:border-gray-200/10">
             <div className="col-span-full">
               <label
                 htmlFor="preview"
-                className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
               >
                 プレビュー
               </label>
-              <div className="my-3 grid grid-cols-1 xs:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                <div className=" bg-gray-50 dark:bg-slate-800 rounded-lg overflow-hidden">
+              <div className="my-3 grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className=" overflow-hidden rounded-lg bg-gray-50 dark:bg-slate-800">
                   <div
-                    className="bg-cover bg-center h-56 p-4"
+                    className="h-56 bg-cover bg-center p-4"
                     style={{
                       backgroundImage: `url(${img.name ? URL.createObjectURL(img) : initialImg})`,
                     }}
                   >
                     <div className="flex justify-end">
-                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
                         {visibility ? '公開' : 'プライベート'}
                       </span>
                     </div>
@@ -256,16 +256,16 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       {description || 'Description'}
                     </p>
-                    <div className="flex flex-wrap justify-between mt-2">
-                      <div className="relative flex gap-x-2 text-xs items-center text-gray-500 dark:text-gray-400 z-10">
+                    <div className="mt-2 flex flex-wrap justify-between">
+                      <div className="relative z-10 flex items-center gap-x-2 text-xs text-gray-500 dark:text-gray-400">
                         <div
-                          className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 bg-cover bg-center"
+                          className="h-8 w-8 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-700"
                           style={{
                             backgroundImage: `url(${work.author.image})`,
                           }}
                         />
 
-                        <p className="flex text-md mt-1 text-gray-500 dark:text-gray-400 z-10">
+                        <p className="text-md z-10 mt-1 flex text-gray-500 dark:text-gray-400">
                           @{work.author.name ? work.author.name : 'Unknown'}
                         </p>
                       </div>
@@ -278,11 +278,11 @@ export default function WorkEditForm({ work }: { work: Work }) {
               </div>
             </div>
           </div>
-          <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-12 dark:border-gray-200/10">
             <div className="col-span-full">
               <label
                 htmlFor="visibility"
-                className="block text-md font-semibold leading-6 text-gray-900 dark:text-gray-100"
+                className="text-md block font-semibold leading-6 text-gray-900 dark:text-gray-100"
               >
                 公開設定
               </label>
@@ -292,7 +292,7 @@ export default function WorkEditForm({ work }: { work: Work }) {
                     id="input_visibility"
                     name="visibility"
                     type="checkbox"
-                    className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-300 rounded"
+                    className="h-4 w-4 rounded border-gray-300 text-gray-600 focus:ring-gray-500"
                     checked={visibility}
                     defaultChecked={visibility}
                     onChange={(event) => setVisibility(event.target.checked)}
@@ -328,16 +328,16 @@ export default function WorkEditForm({ work }: { work: Work }) {
           </div>
         </div>
       </form>
-      <div className="border-t border-gray-900/10 dark:border-gray-200/10 py-6">
-        <h3 className="text-md font-semibold leading-6 text-gray-900 dark:text-gray-100 mb-4">
+      <div className="border-t border-gray-900/10 py-6 dark:border-gray-200/10">
+        <h3 className="text-md mb-4 font-semibold leading-6 text-gray-900 dark:text-gray-100">
           変更不可な項目
         </h3>
         <div
-          className="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 dark:bg-red-800/10 dark:border-red-900 dark:text-red-500"
+          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900 dark:bg-red-800/10 dark:text-red-500"
           role="alert"
         >
-          <div className="flex items-center  flex-col sm:flex-row gap-2">
-            <div className="flex-1 flex">
+          <div className="flex flex-col  items-center gap-2 sm:flex-row">
+            <div className="flex flex-1">
               <div className="ms-4">
                 <h3 className="text-sm font-semibold">成果物の削除</h3>
                 <div className="mt-1 text-sm text-red-700 dark:text-red-400">

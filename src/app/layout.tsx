@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession()
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col dark:bg-gray-950`}>
+      <body className={`${inter.className} flex min-h-screen flex-col dark:bg-gray-950`}>
         <ThemeProvider>
           <SessionProvider>{children}</SessionProvider>
         </ThemeProvider>

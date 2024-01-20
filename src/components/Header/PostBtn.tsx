@@ -18,7 +18,7 @@ export function PostBtn() {
         <Menu.Button className="flex rounded-md bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           <span className="sr-only">Open post menu</span>
           <span>投稿</span>
-          <PaperAirplaneIcon className="h-4 w-4 ml-1 my-auto -mr-1" aria-hidden="true" />
+          <PaperAirplaneIcon className="my-auto -mr-1 ml-1 h-4 w-4" aria-hidden="true" />
         </Menu.Button>
       </div>
       <Transition
@@ -57,7 +57,7 @@ export function PostBtnMB() {
           key={item.name}
           as="button"
           onClick={async () => await Post(item.url)}
-          className="text-gray-600 hover:text-gray-900 dark:text-gray-50 dark:hover:text-white block w-full text-left rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 dark:hover:bg-gray-700"
+          className="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           {item.name}
         </Disclosure.Button>

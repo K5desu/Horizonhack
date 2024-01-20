@@ -15,11 +15,11 @@ function SubmitButton({ isInputFilled }: { isInputFilled: boolean }) {
   return (
     <button
       type="submit"
-      className={`py-3 rounded-lg border transition-all duration-200 overflow-hidden whitespace-nowrap ${
-        isInputFilled ? 'opacity-100 visible w-auto px-4 ml-2' : 'opacity-0 invisible w-0 px-0 ml-0'
+      className={`overflow-hidden whitespace-nowrap rounded-lg border py-3 transition-all duration-200 ${
+        isInputFilled ? 'visible ml-2 w-auto px-4 opacity-100' : 'invisible ml-0 w-0 px-0 opacity-0'
       } ${
-        isInputFilled ? 'bg-blue-500 dark:bg-blue-600 text-white' : 'bg-white dark:bg-slate-800'
-      } border-gray-300 dark:text-gray-400 dark:border-gray-700`}
+        isInputFilled ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-white dark:bg-slate-800'
+      } border-gray-300 dark:border-gray-700 dark:text-gray-400`}
       aria-disabled={pending}
       disabled={pending}
     >
@@ -49,14 +49,14 @@ export default function CommentForm({
 
   return (
     <>
-      <form action={formAction} className="flex mt-4 text-sm">
+      <form action={formAction} className="mt-4 flex text-sm">
         <input type="hidden" name="articleId" value={articleId} />
         {articleAuthor && <input type="hidden" name="articleAuthor" value={articleAuthor} />}
         <input type="hidden" name="authorName" value={authorName} />
         <input
           type="text"
           name="body"
-          className="px-4 py-3 rounded-lg flex-1 border border-gray-300 dark:text-gray-400 dark:bg-slate-800 dark:border-gray-700"
+          className="flex-1 rounded-lg border border-gray-300 px-4 py-3 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-400"
           placeholder="コメントを入力してください。"
           required
           value={bodyValue}

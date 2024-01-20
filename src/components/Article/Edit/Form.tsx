@@ -117,12 +117,12 @@ export default function ArticleEditForm({ article }: { article: Article }) {
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <input type="hidden" name="articleId" value={articleId} />
-          <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-12 dark:border-gray-200/10">
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <label
                   htmlFor="title"
-                  className="block text-md font-bold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-bold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   タイトル {'(必須)'}
                 </label>
@@ -132,7 +132,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                     id="input_title"
                     name="title"
                     defaultValue={article.title || ''}
-                    className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                     placeholder="記事のタイトルを入力"
                     required
                     onChange={(e) => setTitle(e.target.value)}
@@ -143,7 +143,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
               <div className="col-span-full">
                 <label
                   htmlFor="body"
-                  className="block text-md font-bold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-bold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   本文 {'(必須)'}
                 </label>
@@ -152,7 +152,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                 </p>
                 <Link
                   href="/docs/markdown"
-                  className="mt-2 text-xs leading-6 text-gray-400 dark:text-gray-500 underline"
+                  className="mt-2 text-xs leading-6 text-gray-400 underline dark:text-gray-500"
                   target="_blank"
                 >
                   Markdown記法 | Link Mono
@@ -165,7 +165,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
               <div className="col-span-full">
                 <label
                   htmlFor="tags"
-                  className="block text-md font-bold leading-6 text-gray-900 dark:text-gray-100"
+                  className="text-md block font-bold leading-6 text-gray-900 dark:text-gray-100"
                 >
                   タグ {'(必須)'}
                 </label>
@@ -176,7 +176,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
             </div>
           </div>
 
-          <div className="border-b border-gray-900/10 dark:border-gray-200/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-12 dark:border-gray-200/10">
             <div className="space-y-10">
               <fieldset>
                 <legend className="text-md font-semibold leading-6 text-gray-900 dark:text-gray-100">
@@ -192,7 +192,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                       name="radio_visibility"
                       type="radio"
                       value="private"
-                      className="h-4 w-4 border-gray-300 dark:border-gray-700 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 dark:border-gray-700"
                       defaultChecked={article.visibility === false || article.visibility === null}
                       onChange={() => setVisibility(false)}
                     />
@@ -209,7 +209,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                       name="radio_visibility"
                       type="radio"
                       value="public"
-                      className="h-4 w-4 border-gray-300 dark:border-gray-700 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 dark:border-gray-700"
                       defaultChecked={article.visibility === true}
                       onChange={() => setVisibility(true)}
                     />
@@ -241,16 +241,16 @@ export default function ArticleEditForm({ article }: { article: Article }) {
           </div>
         </div>
       </form>
-      <div className="border-t border-gray-900/10 dark:border-gray-200/10 py-6">
-        <h3 className="text-md font-semibold leading-6 text-gray-900 dark:text-gray-100 mb-4">
+      <div className="border-t border-gray-900/10 py-6 dark:border-gray-200/10">
+        <h3 className="text-md mb-4 font-semibold leading-6 text-gray-900 dark:text-gray-100">
           変更不可な項目
         </h3>
         <div
-          className="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 dark:bg-red-800/10 dark:border-red-900 dark:text-red-500"
+          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900 dark:bg-red-800/10 dark:text-red-500"
           role="alert"
         >
-          <div className="flex items-center  flex-col sm:flex-row gap-2">
-            <div className="flex-1 flex">
+          <div className="flex flex-col  items-center gap-2 sm:flex-row">
+            <div className="flex flex-1">
               <div className="ms-4">
                 <h3 className="text-sm font-semibold">記事の削除</h3>
                 <div className="mt-1 text-sm text-red-700 dark:text-red-400">

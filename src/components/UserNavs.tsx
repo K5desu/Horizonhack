@@ -21,13 +21,13 @@ export default function UserNavs({
 
   return (
     <>
-      <nav className="flex items-baseline mt-4 space-x-4">
+      <nav className="mt-4 flex items-baseline space-x-4">
         {navigations.map((nav) => (
           <Link
             key={nav.label}
             className={`${
               nav.current
-                ? 'text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-900 '
+                ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white '
                 : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
             } rounded-md px-3 py-2 text-sm font-medium`}
             href={nav.href}

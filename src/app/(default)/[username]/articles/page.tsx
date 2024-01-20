@@ -34,15 +34,15 @@ export default async function UserArticlesPage({
       <>
         <Inner>
           <header>
-            <nav className="flex mb-3" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+            <nav className="mb-3 flex" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 rtl:space-x-reverse md:space-x-2">
                 <li className="inline-flex items-center">
                   <Link
                     href="/"
                     className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
                   >
                     <svg
-                      className="w-3 h-3 me-2.5"
+                      className="me-2.5 h-3 w-3"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
@@ -56,7 +56,7 @@ export default async function UserArticlesPage({
                 <li>
                   <div className="flex items-center">
                     <svg
-                      className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                      className="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -72,7 +72,7 @@ export default async function UserArticlesPage({
                     </svg>
                     <Link
                       href={`/${params.username}`}
-                      className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                      className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ms-2"
                     >
                       {params.username}
                     </Link>
@@ -81,7 +81,7 @@ export default async function UserArticlesPage({
                 <li aria-current="page">
                   <div className="flex items-center">
                     <svg
-                      className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                      className="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -95,14 +95,14 @@ export default async function UserArticlesPage({
                         d="m1 9 4-4-4-4"
                       />
                     </svg>
-                    <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                    <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
                       Articles
                     </span>
                   </div>
                 </li>
               </ol>
             </nav>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50">
                 {params.username}&#039;s Articles
               </h1>

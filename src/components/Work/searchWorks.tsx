@@ -41,7 +41,7 @@ export default async function SearchWorks({
   return (
     <>
       {works.map((work) => (
-        <div className="relative group" key={work.id}>
+        <div className="group relative" key={work.id}>
           <WorkCard data={work} />
         </div>
       ))}

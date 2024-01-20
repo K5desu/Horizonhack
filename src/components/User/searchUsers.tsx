@@ -47,27 +47,27 @@ export default async function SearchUsers({
         <Link
           key={user.id}
           href={`/${user.name}`}
-          className={`flex w-full items-center py-2 border-t ${
+          className={`flex w-full items-center border-t py-2 ${
             index === users.length - 1 ? 'border-b' : ''
-          } border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition group`}
+          } group border-gray-300 transition hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800`}
         >
           <Image
             src={user.image || ''}
             alt={user.displayName || ''}
-            className="w-10 h-10 rounded-full mr-4"
+            className="mr-4 h-10 w-10 rounded-full"
             width={64}
             height={64}
           />
           <div className="flex flex-col">
-            <span className="text-gray-800 dark:text-gray-100 font-semibold">
+            <span className="font-semibold text-gray-800 dark:text-gray-100">
               {user.displayName}
             </span>
-            <span className="text-gray-500 dark:text-gray-400 text-sm group-hover:underline">
+            <span className="text-sm text-gray-500 group-hover:underline dark:text-gray-400">
               @{user.name}
             </span>
           </div>
           <div className="ml-auto">
-            <span className="text-gray-500 dark:text-gray-400 text-sm mx-2">
+            <span className="mx-2 text-sm text-gray-500 dark:text-gray-400">
               {user.role === 'official' && '公式'}
               {user.role === 'admin' && '管理者'}
             </span>

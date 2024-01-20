@@ -2,14 +2,14 @@ import Link from 'next/link'
 
 export function AnounceGuideLine() {
   return (
-    <div className="flex flex-wrap text-sm items-center text-gray-500">
+    <div className="flex flex-wrap items-center text-sm text-gray-500">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-6 h-6"
+        className="h-6 w-6"
       >
         <path
           strokeLinecap="round"
@@ -20,7 +20,7 @@ export function AnounceGuideLine() {
 
       <Link
         href="/docs/guideline"
-        className="mx-2 leading-6 text-blue-400 dark:text-blue-500 underline hover:text-blue-500 dark:hover:text-blue-400"
+        className="mx-2 leading-6 text-blue-400 underline hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400"
         target="_blank"
       >
         コミュニティガイドライン

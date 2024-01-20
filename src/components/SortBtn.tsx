@@ -32,7 +32,7 @@ export default function SortBtn({ sort }: { sort: 'new' | 'old' | undefined }) {
       {({ open }) => (
         <>
           <div className="relative">
-            <Listbox.Button className="relative w-full cursor-default rounded-md text-gray-900 bg-white dark:text-gray-200 dark:bg-slate-800 py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-slate-800 dark:text-gray-200 dark:ring-gray-700 sm:text-sm sm:leading-6">
               <span className="flex items-center">
                 <span className="ml-3 block truncate">{selectedSort.name}</span>
               </span>
@@ -48,18 +48,18 @@ export default function SortBtn({ sort }: { sort: 'new' | 'old' | undefined }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full text-gray-900 bg-white dark:text-gray-200 dark:bg-slate-800 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base text-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800 dark:text-gray-200 sm:text-sm">
                 {sorts.map((sort) => (
                   <Listbox.Option
                     key={sort.id}
                     className={({ active }) =>
                       `${
                         active && selectedSort.name !== sort.name
-                          ? 'text-blue-900 bg-blue-100 dark:text-blue-100 dark:bg-blue-900'
+                          ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
                           : 'text-gray-900 dark:text-gray-300'
                       } ${
                         selectedSort.name === sort.name ? 'cursor-default' : 'cursor-pointer'
-                      } select-none relative py-2 pl-3 pr-9`
+                      } relative select-none py-2 pl-3 pr-9`
                     }
                     value={sort}
                     onClick={(e) => {

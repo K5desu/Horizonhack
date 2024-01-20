@@ -7,8 +7,8 @@ export default async function Footer() {
   return (
     <>
       <footer className="bg-white dark:bg-gray-900">
-        <div className="container flex flex-col items-center justify-between px-4 sm:px-6 lg:px-8 py-6 mx-auto max-w-7xl space-y-4 sm:space-y-0 sm:flex-row">
-          <div className="w-[1.875rem] h-[1.875rem]">
+        <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between space-y-4 px-4 py-6 sm:flex-row sm:space-y-0 sm:px-6 lg:px-8">
+          <div className="h-[1.875rem] w-[1.875rem]">
             <ThemaSwitchBtn />
           </div>
 
@@ -32,15 +32,15 @@ export default async function Footer() {
             <span>.</span>
           </p>
 
-          <div className="flex -mx-2">
+          <div className="-mx-2 flex">
             <a
               href="https://github.com/Ryukoku-Horizon/2023-Hack-S-no1"
-              className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
               aria-label="Github"
               rel="noreferrer noopener"
             >
               <svg
-                className="w-5 h-5 fill-current"
+                className="h-5 w-5 fill-current"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

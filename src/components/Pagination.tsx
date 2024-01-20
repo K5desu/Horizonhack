@@ -20,11 +20,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     <div className="flex overflow-x-scroll">
       <Link
         href={currentPage !== 1 ? createPageURL(currentPage - 1) : {}}
-        className={`flex items-center justify-center px-4 py-2 mx-1 ${
+        className={`mx-1 flex items-center justify-center px-4 py-2 ${
           currentPage === 1
-            ? 'text-gray-300 cursor-default dark:text-gray-700'
-            : 'text-gray-700 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200'
-        } capitalize bg-gray-100 rounded-md dark:bg-gray-800 `}
+            ? 'cursor-default text-gray-300 dark:text-gray-700'
+            : 'text-gray-700 hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-gray-200'
+        } rounded-md bg-gray-100 capitalize dark:bg-gray-800 `}
       >
         {'<'}
       </Link>
@@ -42,11 +42,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
       <Link
         href={currentPage !== totalPages ? createPageURL(currentPage + 1) : {}}
-        className={`flex items-center justify-center px-4 py-2 mx-1 ${
+        className={`mx-1 flex items-center justify-center px-4 py-2 ${
           currentPage === totalPages
-            ? 'text-gray-700 cursor-default dark:text-gray-700'
-            : 'text-gray-700 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200'
-        } capitalize bg-gray-100 rounded-md dark:bg-gray-800 `}
+            ? 'cursor-default text-gray-700 dark:text-gray-700'
+            : 'text-gray-700 hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-gray-200'
+        } rounded-md bg-gray-100 capitalize dark:bg-gray-800 `}
       >
         {'>'}
       </Link>

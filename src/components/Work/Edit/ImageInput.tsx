@@ -51,13 +51,13 @@ export default function ImageInput({
   return (
     <>
       <div>
-        <div className="space-y-1 mb-4">
+        <div className="mb-4 space-y-1">
           <p className="text-sm text-gray-500 dark:text-gray-400">最大： 5MB</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">形式： PNG JPEG</p>
         </div>
         <label
           htmlFor="image-upload"
-          className="group relative mt-2 flex h-72 cursor-pointer flex-col items-center justify-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-gray-900"
+          className="group relative mt-2 flex h-72 cursor-pointer flex-col items-center justify-center rounded-md border border-gray-300 bg-white shadow-sm transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-900"
         >
           <div
             className="absolute z-[5] h-full w-full rounded-md"
@@ -106,7 +106,7 @@ export default function ImageInput({
               dragActive ? 'border-2 border-black' : ''
             } absolute z-[3] flex h-full w-full flex-col items-center justify-center rounded-md px-10 transition-all ${
               data.image || initialImg
-                ? 'bg-white/80 dark:bg-gray-800/80 opacity-0 hover:opacity-100 hover:backdrop-blur-md'
+                ? 'bg-white/80 opacity-0 hover:opacity-100 hover:backdrop-blur-md dark:bg-gray-800/80'
                 : 'bg-white opacity-100 hover:bg-gray-50 dark:bg-gray-900'
             }`}
           >

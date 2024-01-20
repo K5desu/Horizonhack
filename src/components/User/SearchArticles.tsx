@@ -25,7 +25,7 @@ export default async function SearchUserArticles({
   return (
     <>
       {articles.map((article) => (
-        <div className="relative group" key={article.id}>
+        <div className="group relative" key={article.id}>
           <ArticleCard data={article} />
           {isCurrentUser && (
             <>
@@ -34,7 +34,7 @@ export default async function SearchUserArticles({
                   article.visibility
                     ? 'bg-green-600/50 dark:bg-green-600/60'
                     : 'bg-gray-600/50 dark:bg-gray-600/60'
-                } absolute top-2 right-2 text-xs rounded-lg px-1.5 py-1 text-white no-underline underline-offset-1 hover:underline`}
+                } absolute right-2 top-2 rounded-lg px-1.5 py-1 text-xs text-white no-underline underline-offset-1 hover:underline`}
                 href={`/articles/${article.id}/edit`}
               >
                 編集

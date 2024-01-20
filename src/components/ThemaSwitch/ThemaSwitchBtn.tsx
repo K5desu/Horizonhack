@@ -21,7 +21,7 @@ export default function ThemaSwitchBtn() {
       aria-label="Toggle Dark Mode"
       name="theme"
       id="theme"
-      className="p-1 flex rounded-md border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="flex rounded-md border p-1 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
       <div className="relative">
@@ -31,7 +31,7 @@ export default function ThemaSwitchBtn() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className={`w-5 h-5 ${theme === 'dark' ? style.svgActive : style.svg}`}
+          className={`h-5 w-5 ${theme === 'dark' ? style.svgActive : style.svg}`}
         >
           <path
             strokeLinecap="round"
@@ -45,7 +45,7 @@ export default function ThemaSwitchBtn() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className={`absolute top-0 w-5 h-5 scale-75 ${
+          className={`absolute top-0 h-5 w-5 scale-75 ${
             theme === 'light' ? style.svgActive : style.svg
           }`}
         >
