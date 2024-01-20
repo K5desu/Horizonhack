@@ -12,7 +12,7 @@ export default function SearchBar() {
     <form className="relative" action={search}>
       <input
         type="text"
-        className="rounded-md pl-10 pr-4 py-2 w-full dark:text-gray-200 bg-white dark:bg-slate-800 text-sm placeholder-gray-400 focus:outline-none"
+        className="rounded-md pl-10 pr-4 py-2 w-full dark:text-gray-200 bg-white dark:bg-slate-800 text-md placeholder-gray-400 focus:outline-none"
         placeholder="検索"
         name="search"
       />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormState, useFormStatus } from 'react-dom'
-import { createComment } from '@/app/api/article/CommentActions'
+import { createComment } from '@/app/api/article/comment/CommentActions'
 import { useEffect, useState } from 'react'
 
 const initialState = {

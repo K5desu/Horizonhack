@@ -1,20 +1,9 @@
 import prisma from '@/lib/prisma'
-import WorkCard from './Card'
+import WorkCard from '@/components/Work/Card'
 
-export default async function SearchWorks({
-  searchParams,
-}: {
-  searchParams?: {
-    q?: string | undefined
-    page?: string | undefined
-    sort?: 'new' | 'old' | undefined
-  }
-}) {
+export default async function RecentWorks() {
   const works = await prisma.work.findMany({
     where: {
-      title: {
-        contains: searchParams?.q,
-      },
       visibility: true,
     },
     select: {
@@ -32,10 +21,9 @@ export default async function SearchWorks({
       },
     },
     orderBy: {
-      created_at: searchParams?.sort === 'new' ? 'desc' : 'asc',
+      created_at: 'desc',
     },
     take: 10,
-    skip: Number(searchParams?.page || 0) * 10,
   })
 
   return (
@@ -45,7 +33,11 @@ export default async function SearchWorks({
           <WorkCard data={work} />
         </div>
       ))}
-      {works.length === 0 && <p className="text-gray-500 dark:text-gray-400">検索結果 0件</p>}
+      {works.length === 0 && (
+        <p className="text-gray-500 dark:text-gray-400">
+          まだ、作品がありません 最初の投稿者になりませんか？
+        </p>
+      )}
     </>
   )
 }

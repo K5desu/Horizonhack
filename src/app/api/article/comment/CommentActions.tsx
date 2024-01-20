@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import getUserId from '../user/getUserId'
+import getUserId from '@/app/api/user/getUserId'
 import prisma from '@/lib/prisma'
 
 export async function createComment(

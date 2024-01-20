@@ -1,28 +1,49 @@
-'use client'
-
-import type { PutBlobResult } from '@vercel/blob'
-import { useState, useRef } from 'react'
-import { editWork } from '@/app/api/works/edit/edit'
-import { notFounds } from '@/app/api/works/edit/404'
-import { useRouter } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
+import prisma from '@/lib/prisma'
 import Inner from '@/components/Inner'
-import Uploader from '@/components/Work/uploader'
+import Uploader from '@/components/Work/Edit/uploader'
+import WorkEditForm from '@/components/Work/Edit/Form'
 
-export default function AvatarUploadPage({ params }: { params: { id: string } }) {
-  const inputFileRef = useRef<HTMLInputElement>(null)
-  const inputUrlRef = useRef<HTMLInputElement>(null)
-  const inputTitleRef = useRef<HTMLInputElement>(null)
-  const [blob, setBlob] = useState<PutBlobResult | null>(null)
-  const router = useRouter()
-  const id = params.id
-  //動的ルーティングのid取得
+export default async function AvatarUploadPage({ params }: { params: { id: string } }) {
+  const session = await getServerSession()
+  let work = null
+  const workId = params.id
+  try {
+    work = await prisma.work.findUniqueOrThrow({
+      where: {
+        id: workId,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        url: true,
+        img: true,
+        created_at: true,
+        updated_at: true,
+        visibility: true,
+        author: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+      },
+    })
+  } catch (error) {
+    return notFound()
+  }
+
+  if (!session || session.user.name !== work.author.name) {
+    return forbidden()
+  }
 
   return (
     <>
       <Inner>
         <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Edit Work</h2>
-        <Uploader />
+        <WorkEditForm work={work} />
         {/* <form
           onSubmit={async (event) => {
             //blobに画像データpost
@@ -100,5 +121,14 @@ export default function AvatarUploadPage({ params }: { params: { id: string } })
         )} */}
       </Inner>
     </>
+  )
+}
+
+function forbidden() {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-semibold text-gray-900 dark:text-gray-100">403</h1>
+      <p className="mt-2 text-md text-gray-500">You are not authorized to access this page.</p>
+    </div>
   )
 }

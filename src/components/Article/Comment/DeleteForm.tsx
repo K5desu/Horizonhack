@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormState, useFormStatus } from 'react-dom'
-import { deleteComment } from '@/app/api/article/CommentActions'
+import { deleteComment } from '@/app/api/article/comment/CommentActions'
 
 const initialState = {
   message: '',

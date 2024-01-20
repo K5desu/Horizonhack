@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import DeleteCommentForm from './DeleteForm'
 import { getServerSession } from 'next-auth'
-import getComments from '@/app/api/article/getComments'
+import getComments from '@/app/api/article/comment/getComments'
 import TimeAgo from '@/components/TimeAgo'
 
 export default async function Comments({ articleId }: { articleId: string }) {

@@ -27,6 +27,7 @@ export default async function getUserWorks({
       select: {
         id: true,
         title: true,
+        description: true,
         url: true,
         img: true,
         created_at: true,
