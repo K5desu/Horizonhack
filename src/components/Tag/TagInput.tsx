@@ -139,9 +139,12 @@ export function TagInput({
               <button
                 key={tag.name}
                 className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100"
-                onClick={(e) => (
-                  e.preventDefault(), addTag(tag.name), setInputValue(''), setSimilarTags([])
-                )}
+                onClick={async (e) => {
+                  e.preventDefault()
+                  addTag(tag.name)
+                  setInputValue('')
+                  setSimilarTags([])
+                }}
               >
                 {tag.name}
                 <span className="ml-1 text-xs text-gray-400">
