@@ -74,11 +74,11 @@ export default async function UserArticlePage({
         <header className="relative">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{article?.title}</h1>
           {article?.tags && article?.tags.length > 0 && (
-            <div className="flex items-center gap-x-2 mt-4">
+            <div className="mt-4 flex items-center gap-x-2">
               {article?.tags.map((tag) => <Tag key={tag.id} name={tag.name} />)}
             </div>
           )}
-          <div className="flex gap-2 flex-wrap items-center mt-4 text-xs dark:text-gray-300">
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs dark:text-gray-300">
             <span>
               <span>作成日:</span>
               <time dateTime={article?.created_at.toISOString()}>
@@ -108,21 +108,21 @@ export default async function UserArticlePage({
               )}
             </span>
           </div>
-          <div className="flex items-center gap-x-2 mt-4">
+          <div className="mt-4 flex items-center gap-x-2">
             <Link
               href={`/${article?.author.name}`}
-              className="relative w-8 h-8 rounded-full z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
+              className="relative z-10 h-8 w-8 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
             >
               <span className="absolute -inset-0.5" />
               <Image
                 src={article?.author.image || ''}
                 width={72}
                 height={72}
-                className="object-cover w-8 h-8 rounded-full"
+                className="h-8 w-8 rounded-full object-cover"
                 alt="Writer's profile image"
               />
             </Link>
-            <div className="text-xs text-gray-700 capitalize z-10 dark:text-white">
+            <div className="z-10 text-xs capitalize text-gray-700 dark:text-white">
               <Link
                 href={`/${article?.author.name}`}
                 tabIndex={-1}
@@ -135,7 +135,7 @@ export default async function UserArticlePage({
           {sessionUserName === username && (
             <Link
               href={`/articles/${articleId}/edit`}
-              className="absolute top-0 right-0 text-xs bg-blue-500 text-white px-2 py-1 rounded-xl"
+              className="absolute right-0 top-0 rounded-xl bg-blue-500 px-2 py-1 text-xs text-white"
             >
               編集
             </Link>
@@ -143,7 +143,7 @@ export default async function UserArticlePage({
         </header>
         <Markdown markdown={formatbody || 'undefined'} />
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">コメント</h2>
-        <section className="my-2 p-4 sm:p-6 lg:p-8 rounded-md bg-slate-50 dark:bg-gray-900">
+        <section className="my-2 rounded-md bg-slate-50 p-4 dark:bg-gray-900 sm:p-6 lg:p-8">
           <Suspense fallback={<p className="text-gray-800 dark:text-white">読み込み中...</p>}>
             <ul className="">
               <Comments articleId={articleId} />

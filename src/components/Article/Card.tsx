@@ -22,9 +22,9 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
   const urlArticle = `${urlAuthor}/articles/${data.id}`
 
   return (
-    <article className="relative flex h-full gap-2 p-4 lg:p-5 flex-col bg-gray-50 overflow-hidden border shadow-none hover:shadow-md rounded-lg dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] transition">
-      <h2 className="flex text-lg text-gray-700 normal-case dark:text-white font-bold">
-        <Link href={urlArticle} className="no-underline underline-offset-1 hover:underline z-10">
+    <article className="relative flex h-full flex-col gap-2 overflow-hidden rounded-lg border bg-gray-50 p-4 shadow-none transition hover:shadow-md dark:border-gray-700 dark:bg-slate-900 dark:shadow-slate-700/[.7] lg:p-5">
+      <h2 className="flex text-lg font-bold normal-case text-gray-700 dark:text-white">
+        <Link href={urlArticle} className="z-10 no-underline underline-offset-1 hover:underline">
           {data.title || 'Untitled'}
         </Link>
       </h2>
@@ -33,22 +33,22 @@ export default function ArticleCard({ data }: { data: ArticleProps }) {
           <Tag key={index} name={tag.name} />
         ))}
       </div>
-      <div className="relative flex-1 flex justify-between items-end gap-x-2">
+      <div className="relative flex flex-1 items-end justify-between gap-x-2">
         <div className="flex items-center gap-x-2">
           <Link
             href={urlArticle || ''}
-            className="relative w-8 h-8 rounded-full z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
+            className="relative z-10 h-8 w-8 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
           >
             <span className="absolute -inset-0.5" />
             <Image
               src={data.author.image || ''}
               width={72}
               height={72}
-              className="object-cover w-8 h-8 rounded-full"
+              className="h-8 w-8 rounded-full object-cover"
               alt="Writer's profile image"
             />
           </Link>
-          <div className="text-xs text-gray-700 z-10 dark:text-white">
+          <div className="z-10 text-xs text-gray-700 dark:text-white">
             <Link
               href={urlAuthor}
               tabIndex={-1}

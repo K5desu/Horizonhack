@@ -89,19 +89,19 @@ export function TagInput({
   return (
     <>
       <div
-        className="flex flex-wrap gap-2 w-full group rounded-md border-0 px-3 py-2 text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        className="group flex w-full flex-wrap gap-2 rounded-md border-0 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
         onClick={handleGroupClick}
       >
         <input type="hidden" name="tags" value={tags} />
         {tags.map((tag) => (
           <div
             key={tag}
-            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100"
+            className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-100"
           >
             {tag}
             <button
               type="button"
-              className="flex-shrink-0 ml-1.5 inline-flex text-gray-400 focus:outline-none focus:text-gray-500"
+              className="ml-1.5 inline-flex flex-shrink-0 text-gray-400 focus:text-gray-500 focus:outline-none"
               onClick={(event) => {
                 event.stopPropagation()
                 const newTags = tags.filter((t) => t !== tag)
@@ -121,7 +121,7 @@ export function TagInput({
             type="text"
             name="tag_input"
             id="tag_input"
-            className="block flex-1 text-sm border-gray-300 bg-transparent focus:outline-none"
+            className="block flex-1 border-gray-300 bg-transparent text-sm focus:outline-none"
             placeholder="タグを追加"
             value={inputValue}
             onChange={handleInputChange}
@@ -134,11 +134,11 @@ export function TagInput({
         <div className="text-sm font-bold text-gray-900 dark:text-gray-100">類似タグ</div>
         {loading && <div>検索中…</div>}
         {similarTags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-1">
+          <div className="mt-1 flex flex-wrap gap-2">
             {similarTags.map((tag) => (
               <button
                 key={tag.name}
-                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100"
+                className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-100"
                 onClick={async (e) => {
                   e.preventDefault()
                   addTag(tag.name)

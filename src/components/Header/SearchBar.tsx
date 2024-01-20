@@ -12,18 +12,18 @@ export default function SearchBar() {
     <form className="relative" action={search}>
       <input
         type="text"
-        className="rounded-md pl-10 pr-4 py-2 w-full dark:text-gray-200 bg-white dark:bg-slate-800 text-md placeholder-gray-400 focus:outline-none"
+        className="text-md w-full rounded-md bg-white py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none dark:bg-slate-800 dark:text-gray-200"
         placeholder="検索"
         name="search"
       />
-      <div className="absolute left-0 top-0 mt-[0.7rem] ml-4">
+      <div className="absolute left-0 top-0 ml-4 mt-[0.7rem]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-4 h-4 text-gray-600"
+          className="h-4 w-4 text-gray-600"
         >
           <path
             strokeLinecap="round"

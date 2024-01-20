@@ -140,15 +140,15 @@ export default async function SearchPage({
   return (
     <>
       <Inner>
-        <nav className="flex mb-3" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        <nav className="mb-3 flex" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 rtl:space-x-reverse md:space-x-2">
             <li className="inline-flex items-center">
               <Link
                 href="#"
                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
-                  className="w-3 h-3 me-2.5"
+                  className="me-2.5 h-3 w-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -162,7 +162,7 @@ export default async function SearchPage({
             <li aria-current="page">
               <div className="flex items-center">
                 <svg
-                  className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                  className="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -176,7 +176,7 @@ export default async function SearchPage({
                     d="m1 9 4-4-4-4"
                   />
                 </svg>
-                <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
                   Search
                 </span>
               </div>
@@ -191,19 +191,19 @@ export default async function SearchPage({
                 <input type="hidden" name="target" value={searchParams?.target} />
                 <input
                   type="text"
-                  className="rounded-md pl-10 pr-4 py-2 w-full border dark:border-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 placeholder-gray-400 focus:outline-none"
+                  className="w-full rounded-md border bg-white py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none dark:border-gray-700 dark:bg-slate-800 dark:text-gray-200"
                   placeholder="検索"
                   name="search"
                   defaultValue={searchParams?.q}
                 />
-                <div className="absolute left-0 top-0 mt-[0.7rem] ml-4">
+                <div className="absolute left-0 top-0 ml-4 mt-[0.7rem]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-4 h-4 text-gray-600"
+                    className="h-4 w-4 text-gray-600"
                   >
                     <path
                       strokeLinecap="round"
@@ -216,13 +216,13 @@ export default async function SearchPage({
             </form>
             {searchParams?.q && (
               <>
-                <h3 className="text-xl my-4 font-bold text-gray-800 dark:text-gray-50">
+                <h3 className="my-4 text-xl font-bold text-gray-800 dark:text-gray-50">
                   &#34;{searchParams?.q}&#34; の検索結果
                 </h3>
-                <nav className="flex justify-between flex-wrap mb-3 gap-y-2">
-                  <ul className="flex items-center gap-2 flex-wrap">
+                <nav className="mb-3 flex flex-wrap justify-between gap-y-2">
+                  <ul className="flex flex-wrap items-center gap-2">
                     {targets.map((target) => (
-                      <li key={target.name} className="list-none m-0">
+                      <li key={target.name} className="m-0 list-none">
                         <Link
                           href={
                             target.isActive
@@ -231,7 +231,7 @@ export default async function SearchPage({
                                   (searchParams?.sort && `&sort=${searchParams?.sort}`) || ''
                                 }`
                           }
-                          className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                          className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-medium ${
                             target.isActive
                               ? 'bg-blue-600 text-white'
                               : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
@@ -241,7 +241,7 @@ export default async function SearchPage({
                           {target.name === 'works' && '成果物'}
                           {target.name === 'users' && 'ユーザー'}
                           {target.name === 'tags' && 'タグ'}
-                          <span className="inline-block rounded-md px-2 py-0.5 text-xs font-medium bg-gray-300 text-gray-700 dark:bg-gray-600 dark:text-gray-200 ml-1">
+                          <span className="ml-1 inline-block rounded-md bg-gray-300 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-200">
                             {target.amount}
                           </span>
                         </Link>
@@ -271,7 +271,7 @@ export default async function SearchPage({
                   >
                     <SearchArticles searchParams={searchArticlesParams} />
                     {articlesAmount > 10 && (
-                      <div className="w-full flex justify-center md:col-start-1 md:col-end-3">
+                      <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
                         <Pagination totalPages={Math.ceil(articlesAmount / 10)} />
                       </div>
                     )}
@@ -281,7 +281,7 @@ export default async function SearchPage({
             )}
             {targets[1].isActive && (
               <>
-                <main className="my-3 grid grid-cols-1 xs:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <main className="my-3 grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   <Suspense
                     fallback={
                       <WorkCardSkeletons
@@ -294,7 +294,7 @@ export default async function SearchPage({
                   >
                     <SearchWorks searchParams={searchWorkParams} />
                     {worksAmount > 10 && (
-                      <div className="w-full flex justify-center md:col-start-1 md:col-end-5">
+                      <div className="flex w-full justify-center md:col-start-1 md:col-end-5">
                         <Pagination totalPages={Math.ceil(worksAmount / 10)} />
                       </div>
                     )}

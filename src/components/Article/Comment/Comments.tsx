@@ -15,26 +15,26 @@ export default async function Comments({ articleId }: { articleId: string }) {
       {comments.map((comment, index) => (
         <li
           key={comment.id}
-          className={`text-gray-500 dark:text-gray-400 flex flex-col border-t ${
+          className={`flex flex-col border-t text-gray-500 dark:text-gray-400 ${
             index === comments.length - 1 ? 'border-b' : ''
-          } border-gray-300 dark:border-gray-700 py-4`}
+          } border-gray-300 py-4 dark:border-gray-700`}
         >
-          <div className="flex w-full justify-between flex-wrap">
+          <div className="flex w-full flex-wrap justify-between">
             <div className="flex items-center gap-x-2">
               <Link
                 href={`/${comment.author.name}`}
-                className="relative w-8 h-8 rounded-full z-10 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
+                className="relative z-10 h-8 w-8 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-white active:brightness-90"
               >
                 <span className="absolute -inset-0.5" />
                 <Image
                   src={comment.author.image || ''}
                   width={72}
                   height={72}
-                  className="object-cover w-8 h-8 rounded-full"
+                  className="h-8 w-8 rounded-full object-cover"
                   alt="Writer's profile image"
                 />
               </Link>
-              <div className="text-xs text-gray-700 capitalize z-10 dark:text-white">
+              <div className="z-10 text-xs capitalize text-gray-700 dark:text-white">
                 <Link
                   href={`/${comment.author.name}`}
                   tabIndex={-1}
@@ -43,7 +43,7 @@ export default async function Comments({ articleId }: { articleId: string }) {
                   @{comment.author.name}
                 </Link>
               </div>
-              <div className="text-xs text-gray-700 capitalize z-10 dark:text-white">
+              <div className="z-10 text-xs capitalize text-gray-700 dark:text-white">
                 <TimeAgo date={comment.created_at} />
               </div>
             </div>
@@ -56,7 +56,7 @@ export default async function Comments({ articleId }: { articleId: string }) {
             )}
           </div>
 
-          <p className="mt-2 ml-10 text-md text-wrap overflow-y-scroll">{comment.body}</p>
+          <p className="text-md text-wrap ml-10 mt-2 overflow-y-scroll">{comment.body}</p>
         </li>
       ))}
       {comments.length === 0 && (

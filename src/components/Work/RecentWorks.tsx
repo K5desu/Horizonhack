@@ -29,7 +29,7 @@ export default async function RecentWorks() {
   return (
     <>
       {works.map((work) => (
-        <div className="relative group" key={work.id}>
+        <div className="group relative" key={work.id}>
           <WorkCard data={work} />
         </div>
       ))}

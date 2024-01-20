@@ -14,7 +14,7 @@ function DeleteButton() {
   return (
     <button
       type="submit"
-      className={`py-1 px-2 rounded-lg bg-white dark:bg-slate-800 border border-gray-300 dark:border-gray-700 transition-all duration-200 overflow-hidden whitespace-nowrap`}
+      className={`overflow-hidden whitespace-nowrap rounded-lg border border-gray-300 bg-white px-2 py-1 transition-all duration-200 dark:border-gray-700 dark:bg-slate-800`}
       aria-disabled={pending}
       disabled={pending}
     >

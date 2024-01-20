@@ -15,7 +15,7 @@ function DeleteButton() {
     <>
       <button
         type="submit"
-        className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-500"
+        className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-500"
         aria-disabled={pending}
         disabled={pending}
       >
