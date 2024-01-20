@@ -10,8 +10,8 @@ import Image from 'next/image'
 import { signIn } from 'next-auth/react'
 
 import SearchBar from './SearchBar'
-import { PostBtn, PostBtnMB } from './PostBtn'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { PostBtn } from './PostBtn'
+import { usePathname } from 'next/navigation'
 
 let navigation = [
   { name: 'Articles', href: '/', current: true },
@@ -179,7 +179,7 @@ export default function Header({ session }: { session: any }) {
                   <>
                     {!isEditPage && (
                       <div className="space-y-1 border-b border-gray-300 px-2 py-3 dark:border-gray-700 sm:px-3">
-                        <PostBtnMB />
+                        <PostBtn isMobile={true} />
                       </div>
                     )}
                     <div className="py-3">
