@@ -17,7 +17,7 @@ export default async function SignIn() {
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Only access for Horizon member
+                Horizon メンバーのみアクセス可能です
               </p>
             </div>
 
@@ -36,7 +36,7 @@ export default async function SignIn() {
                 href="/"
                 className="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               >
-                Browse without Sign in
+                戻る
               </Link>
             </div>
           </div>
