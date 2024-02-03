@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Roboto_Flex } from 'next/font/google'
 import '@/app/globals.css'
 
 import { getServerSession } from 'next-auth'
@@ -7,6 +7,12 @@ import SessionProvider from '@/components/Providers/SessionProvider'
 import ThemeProvider from '@/components/Providers/ThemeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
+const roboto_flex = Roboto_Flex({ subsets: ['latin'] })
+const fonts = `${inter.style.fontFamily}, ${roboto_flex.style.fontFamily}`
+const fontStyle = {
+  fontFamily: `${fonts}`,
+  fontStyle: 'normal',
+}
 
 export const metadata: Metadata = {
   title: 'Link Mono',
@@ -17,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession()
   return (
     <html lang="en">
-      <body className={`${inter.className} flex min-h-screen flex-col dark:bg-gray-950`}>
+      <body className={`flex min-h-screen flex-col dark:bg-gray-950`} style={fontStyle}>
         <ThemeProvider>
           <SessionProvider>{children}</SessionProvider>
         </ThemeProvider>
