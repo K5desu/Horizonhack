@@ -97,6 +97,7 @@ export default function ImageInput({
                     }))
                   }
                   reader.readAsDataURL(file)
+                  onChange(file)
                 }
               }
             }}

@@ -5,7 +5,7 @@ import { useFormState } from 'react-dom'
 import toast from 'react-hot-toast'
 import { Menu, Transition } from '@headlessui/react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
-import { createPost } from '@/app/api/createPost/CreateAction'
+import { createPost } from '@/app/api/createpost/CreateAction'
 
 const postOptions = [
   { name: '記事を作成', url: 'articles' },
@@ -24,7 +24,7 @@ function MenuButton({ pending }: { pending?: boolean }) {
 
   return (
     <Menu.Button
-      className={`relative flex items-center rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800 ${
+      className={`relative flex items-center rounded-md border bg-sky-700 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-800 dark:border-gray-700 ${
         isButtonDisabled ? 'hover:bg-sky-700' : ''
       }`}
       disabled={isButtonDisabled}

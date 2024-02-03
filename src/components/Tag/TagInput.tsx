@@ -128,11 +128,14 @@ export function TagInput({
             onKeyDown={handleInputKeyDown}
           />
         )}
-        <div className="text-sm text-gray-500">{`${tags.length}/5`}</div>
+        <div className="flex items-center text-sm text-gray-500">{`${tags.length}/5`}</div>
       </div>
       <div className="mt-2">
         <div className="text-sm font-bold text-gray-900 dark:text-gray-100">類似タグ</div>
         {loading && <div>検索中…</div>}
+        {similarTags.length === 0 && !loading && inputValue && (
+          <div>タグが見つかりませんでした</div>
+        )}
         {similarTags.length > 0 && (
           <div className="mt-1 flex flex-wrap gap-2">
             {similarTags.map((tag) => (

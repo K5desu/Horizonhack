@@ -80,7 +80,7 @@ export default function Header({ session }: { session: any }) {
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">Open user menu</span>
                                 <Image
-                                  className="h-8 w-8 rounded-full"
+                                  className="h-8 w-8 rounded-full border dark:border-gray-700"
                                   src={user?.image || ''}
                                   alt="your avater image"
                                   width={128}
@@ -130,7 +130,7 @@ export default function Header({ session }: { session: any }) {
                       {!session && (
                         <button
                           onClick={() => signIn()}
-                          className="item-center ml-3 rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                          className="item-center ml-3 rounded-md border bg-sky-700 px-3 py-2 text-sm font-semibold leading-6 text-gray-50 hover:bg-sky-800 dark:border-gray-700"
                         >
                           Sign in <span aria-hidden="true">&rarr;</span>
                         </button>
@@ -139,7 +139,7 @@ export default function Header({ session }: { session: any }) {
                   </div>
                   {/* モバイル用メニュー表示ボタン */}
                   <div className="-mr-2 flex md:hidden">
-                    <Disclosure.Button className="hover:text-gray relative inline-flex items-center justify-center rounded-md bg-gray-200 p-2 text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:ring-offset-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-white dark:focus:ring-offset-gray-800">
+                    <Disclosure.Button className="hover:text-gray relative inline-flex items-center justify-center rounded-md border bg-gray-200 p-2 text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:ring-offset-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-white dark:focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -186,7 +186,7 @@ export default function Header({ session }: { session: any }) {
                       <div className="mt-4 flex items-center px-5">
                         <div className="flex-shrink-0">
                           <Image
-                            className="h-10 w-10 rounded-full"
+                            className="h-10 w-10 rounded-full border dark:border-gray-700"
                             src={user?.image || ''}
                             alt="your avater image"
                             width={128}
@@ -226,7 +226,7 @@ export default function Header({ session }: { session: any }) {
                     <Disclosure.Button
                       as="a"
                       onClick={() => signIn()}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      className="block rounded-md bg-sky-700 px-3 py-2 text-base font-medium text-gray-50 hover:bg-sky-800 "
                     >
                       Sign in
                     </Disclosure.Button>

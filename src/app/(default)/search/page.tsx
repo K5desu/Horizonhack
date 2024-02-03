@@ -144,7 +144,7 @@ export default async function SearchPage({
           <ol className="inline-flex items-center space-x-1 rtl:space-x-reverse md:space-x-2">
             <li className="inline-flex items-center">
               <Link
-                href="#"
+                href="/"
                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
@@ -231,17 +231,17 @@ export default async function SearchPage({
                                   (searchParams?.sort && `&sort=${searchParams?.sort}`) || ''
                                 }`
                           }
-                          className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-medium ${
+                          className={`inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium dark:border-gray-700 ${
                             target.isActive
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
+                              ? 'bg-sky-700 text-white'
+                              : 'bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-gray-200'
                           }`}
                         >
                           {target.name === 'articles' && '記事'}
                           {target.name === 'works' && '成果物'}
                           {target.name === 'users' && 'ユーザー'}
                           {target.name === 'tags' && 'タグ'}
-                          <span className="ml-1 inline-block rounded-md bg-gray-300 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                          <span className="ml-1 inline-block rounded-md bg-gray-300 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-500 dark:text-gray-100">
                             {target.amount}
                           </span>
                         </Link>
@@ -311,7 +311,7 @@ export default async function SearchPage({
             )}
             {targets[3].isActive && (
               <>
-                <main className="relative my-3">
+                <main className="relative my-3 flex flex-col gap-y-2">
                   <SearchTags searchParams={searchParams} />
                 </main>
               </>

@@ -118,7 +118,7 @@ export default async function UserArticlePage({
                 src={article?.author.image || ''}
                 width={72}
                 height={72}
-                className="h-8 w-8 rounded-full object-cover"
+                className="h-8 w-8 rounded-full border object-cover dark:border-gray-700"
                 alt="Writer's profile image"
               />
             </Link>
@@ -135,7 +135,7 @@ export default async function UserArticlePage({
           {sessionUserName === username && (
             <Link
               href={`/articles/${articleId}/edit`}
-              className="absolute right-0 top-0 rounded-xl bg-blue-500 px-2 py-1 text-xs text-white"
+              className="absolute right-0 top-0 rounded-xl bg-sky-700 px-2 py-1 text-xs text-white hover:bg-sky-800"
             >
               編集
             </Link>
