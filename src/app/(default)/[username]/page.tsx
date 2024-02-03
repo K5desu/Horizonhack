@@ -6,15 +6,24 @@ import Link from 'next/link'
 import getUserProfile from '@/app/api/user/getUserProfile'
 import getUsersState from '@/app/api/user/getUserState'
 import { Metadata } from 'next'
-import UserArticles from '@/components/User/Articles'
 import { Suspense } from 'react'
 import UserWorks from '@/components/User/Works'
 import { ArticleCardSkeletons, WorkCardSkeletons } from '@/components/Skeleton/skeletons'
+import SortBtn from '@/components/SortBtn'
+import Pagination from '@/components/Pagination'
+import UserArticles from '@/components/User/Articles'
 import UserTags from '@/components/User/Tags'
+import UserComments from '@/components/User/Comments'
 
 interface UserProfilePageProps {
   params: {
     username: string
+  }
+  searchParams: {
+    q?: string
+    target?: string
+    page?: string
+    sort?: 'new' | 'old' | undefined
   }
 }
 
@@ -28,24 +37,64 @@ export async function generateMetadata({
   }
 }
 
-export default async function UserProfilePage({ params: { username } }: UserProfilePageProps) {
+export default async function UserProfilePage({ params, searchParams }: UserProfilePageProps) {
+  const username = params.username
   const userProfile = await getUserProfile(username)
-
   const session = await getServerSession()
   const isCurrentUser = session?.user.name === username
-
   const usersState = await getUsersState(username, isCurrentUser)
 
-  const UserStatus = [
-    { label: '記事', value: `${usersState.ArticleAmount}` },
-    { label: '制作物', value: `${usersState.WorkAmount}` },
-    { label: 'コメント', value: `${usersState.CommentAmount}` },
+  const searchArticlesParams = {
+    page: searchParams?.page,
+    sort: searchParams?.sort,
+  }
+  const searchWorksParams = {
+    page: searchParams?.page,
+    sort: searchParams?.sort,
+  }
+  const searchTagsParams = {
+    page: searchParams?.page,
+    sort: searchParams?.sort,
+  }
+  const searchCommentsParams = {
+    page: searchParams?.page,
+    sort: searchParams?.sort,
+  }
+
+  let targets = [
+    {
+      name: 'articles',
+      amount: usersState.ArticleAmount,
+      isActive: searchParams?.target === 'articles' || !searchParams?.target ? true : false,
+    },
+    {
+      name: 'works',
+      amount: usersState.WorkAmount,
+      isActive: searchParams?.target === 'works' ? true : false,
+    },
+    {
+      name: 'tags',
+      amount: usersState.TagAmount,
+      isActive: searchParams?.target === 'tags' ? true : false,
+    },
+    {
+      name: 'comments',
+      amount: usersState.CommentAmount,
+      isActive: searchParams?.target === 'comments' ? true : false,
+    },
   ]
+  const calculateItemsOnPage = ({ amount, page = 1 }: { amount: number; page?: number }) => {
+    page = page || 1
+    const lowerBound = 10 * (page - 1)
+    const upperBound = 10 * page
+    if (page <= 0 || amount <= lowerBound) return 0
+    return amount < upperBound ? amount - lowerBound : 10
+  }
 
   return (
     <>
       <Inner>
-        <header className="overflow-hidden rounded-md border bg-gray-50 p-4 dark:bg-gray-900 lg:p-6">
+        <header className="overflow-hidden rounded-md border bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900 lg:p-6">
           <div className="flex flex-col flex-wrap gap-4 sm:flex-row">
             <div className="relative mx-auto h-24 w-24 rounded-full sm:mx-0">
               <span className="absolute -inset-0.5" />
@@ -53,7 +102,7 @@ export default async function UserProfilePage({ params: { username } }: UserProf
                 src={userProfile?.image || ''}
                 width={128}
                 height={128}
-                className="h-24 w-24 rounded-full object-cover"
+                className="h-24 w-24 rounded-full border object-cover dark:border-gray-700"
                 alt="User's profile image"
               />
             </div>
@@ -86,25 +135,11 @@ export default async function UserProfilePage({ params: { username } }: UserProf
                     </h2>
                   )}
                 </div>
-                <div className="mt-4 flex gap-2 text-center font-semibold sm:mt-0 sm:text-start">
-                  {UserStatus.map((status) => (
-                    <div
-                      key={status.label}
-                      className="flex flex-col align-baseline text-xs text-gray-700 dark:text-white"
-                    >
-                      <span className="">{status.label}</span>
-                      <span>{status.value}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
-              {/* 学習中タグを表示する */}
-              <UserTags username={username} />
             </div>
           </div>
         </header>
-        <div className="flex items-end justify-between">
-          <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-gray-50">記事</h3>
+        <div className="my-4 flex">
           {session?.user.name === username && (
             <div>
               <div className="inline-flex items-center justify-center">
@@ -123,37 +158,121 @@ export default async function UserProfilePage({ params: { username } }: UserProf
             </div>
           )}
         </div>
-        <section className="relative my-3 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Suspense fallback={<ArticleCardSkeletons />}>
-            <UserArticles username={username} />
-            {usersState.ArticleAmount > 10 && (
-              <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+        <nav className="mb-3 flex flex-wrap justify-between gap-y-2">
+          <ul className="flex flex-wrap items-center gap-2">
+            {targets.map((target) => (
+              <li key={target.name} className="m-0 list-none">
                 <Link
-                  href={`/${username}/articles`}
-                  className="inline-flex w-full max-w-lg items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  href={
+                    target.isActive
+                      ? ''
+                      : `/${username}?target=${target.name}${
+                          (searchParams?.sort && `&sort=${searchParams?.sort}`) || ''
+                        }`
+                  }
+                  className={`inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium dark:border-gray-700 ${
+                    target.isActive
+                      ? 'bg-sky-700 text-white'
+                      : 'bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-gray-200'
+                  }`}
                 >
-                  もっと見る
+                  {target.name === 'articles' && '記事'}
+                  {target.name === 'works' && '成果物'}
+                  {target.name === 'tags' && 'タグ'}
+                  {target.name === 'comments' && 'コメント'}
+                  <span className="ml-1 inline-block rounded-md bg-gray-300 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-500 dark:text-gray-100">
+                    {target.amount}
+                  </span>
                 </Link>
-              </div>
-            )}
-          </Suspense>
-        </section>
-        <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-gray-50">制作物</h3>
-        <section className="my-3 grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <Suspense fallback={<WorkCardSkeletons />}>
-            <UserWorks username={username} />
-            {usersState.WorkAmount > 10 && (
-              <div className="flex w-full justify-center xs:col-start-1 xs:col-end-3 md:col-end-4 lg:col-end-5">
-                <Link
-                  href={`/${username}/works`}
-                  className="inline-flex w-full max-w-lg items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              </li>
+            ))}
+          </ul>
+          {!targets[2].isActive && <SortBtn sort={searchParams?.sort || 'new'} />}
+        </nav>
+        <main className="my-4">
+          {targets[0].isActive && (
+            <>
+              <section className="relative grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Suspense
+                  fallback={
+                    <ArticleCardSkeletons
+                      amount={calculateItemsOnPage({
+                        amount: usersState.ArticleAmount,
+                        page: Number(searchParams?.page),
+                      })}
+                    />
+                  }
                 >
-                  もっと見る
-                </Link>
-              </div>
-            )}
-          </Suspense>
-        </section>
+                  <UserArticles
+                    username={username}
+                    isCurrentUser={isCurrentUser}
+                    searchParams={searchArticlesParams}
+                  />
+                  {usersState.ArticleAmount > 10 && (
+                    <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+                      <Pagination totalPages={Math.ceil(usersState.ArticleAmount / 10)} />
+                    </div>
+                  )}
+                </Suspense>
+              </section>
+            </>
+          )}
+          {targets[1].isActive && (
+            <>
+              <section className="relative my-3 grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <Suspense
+                  fallback={
+                    <WorkCardSkeletons
+                      amount={calculateItemsOnPage({
+                        amount: usersState.WorkAmount,
+                        page: Number(searchParams?.page),
+                      })}
+                    />
+                  }
+                >
+                  <UserWorks
+                    username={username}
+                    isCurrentUser={isCurrentUser}
+                    searchParams={searchWorksParams}
+                  />
+                  {usersState.WorkAmount > 10 && (
+                    <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+                      <Pagination totalPages={Math.ceil(usersState.WorkAmount / 10)} />
+                    </div>
+                  )}
+                </Suspense>
+              </section>
+            </>
+          )}
+          {targets[2].isActive && (
+            <>
+              <section className="relative my-3">
+                <Suspense fallback={<>検索中...</>}>
+                  <UserTags username={username} />
+                  {usersState.TagAmount > 10 && (
+                    <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+                      <Pagination totalPages={Math.ceil(usersState.TagAmount / 10)} />
+                    </div>
+                  )}
+                </Suspense>
+              </section>
+            </>
+          )}
+          {targets[3].isActive && (
+            <>
+              <section className="relative my-3 flex flex-col gap-4">
+                <Suspense fallback={<>検索中...</>}>
+                  <UserComments username={username} searchParams={searchCommentsParams} />
+                  {usersState.CommentAmount > 10 && (
+                    <div className="flex w-full justify-center md:col-start-1 md:col-end-3">
+                      <Pagination totalPages={Math.ceil(usersState.CommentAmount / 10)} />
+                    </div>
+                  )}
+                </Suspense>
+              </section>
+            </>
+          )}
+        </main>
       </Inner>
     </>
   )

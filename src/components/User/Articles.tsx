@@ -1,18 +1,27 @@
 import getUserArticles from '@/app/api/user/getUserArticles'
 import ArticleCard from '../Article/Card'
 import Link from 'next/link'
-import { getServerSession } from 'next-auth'
 
 interface UserArticlesProps {
   username: string
+  isCurrentUser: boolean
+  searchParams?: {
+    page?: string
+    sort?: 'new' | 'old' | undefined
+  }
 }
 
-export default async function UserArticles({ username }: UserArticlesProps) {
-  const session = await getServerSession()
-  const isCurrentUser = session?.user?.name === username
-  const articles = await getUserArticles({ username: username, isCurrentUser: isCurrentUser })
-
-  // await new Promise((resolve) => setTimeout(resolve, 5000))
+export default async function UserArticles({
+  username,
+  isCurrentUser,
+  searchParams,
+}: UserArticlesProps) {
+  const articles = await getUserArticles({
+    username: username,
+    isCurrentUser: isCurrentUser,
+    page: searchParams?.page ? Number(searchParams.page) : 1,
+    sort: searchParams?.sort || 'new',
+  })
   return (
     <>
       {articles.map((article) => (
@@ -34,8 +43,11 @@ export default async function UserArticles({ username }: UserArticlesProps) {
           )}
         </div>
       ))}
-      {articles.length === 0 && (
+      {articles.length === 0 && Number(searchParams?.page) === 0 && (
         <p className="text-gray-500 dark:text-gray-400">まだ、記事がありません</p>
+      )}
+      {articles.length === 0 && Number(searchParams?.page) !== 0 && (
+        <p className="text-gray-500 dark:text-gray-400">このページには記事がありません</p>
       )}
     </>
   )
