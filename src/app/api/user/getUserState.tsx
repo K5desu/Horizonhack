@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 
 export default async function getUsersState(username: string, isCurrentUser?: boolean) {
-  const articleWhere = {
+  const publicWhere = {
     author: {
       name: username,
     },
@@ -14,9 +14,11 @@ export default async function getUsersState(username: string, isCurrentUser?: bo
     },
   }
 
-  const ArticleAmount = await prisma.article.count({ where: articleWhere })
-  const WorkAmount = await prisma.work.count({ where: otherWhere })
+  const ArticleAmount = await prisma.article.count({ where: publicWhere })
+  const WorkAmount = await prisma.work.count({ where: publicWhere })
   const CommentAmount = await prisma.comment.count({ where: otherWhere })
+  const user = await prisma.user.findFirst({ where: { name: username }, select: { id: true } })
+  const TagAmount = await prisma.tagsOnUsers.count({ where: { userId: user?.id } })
 
-  return { ArticleAmount, WorkAmount, CommentAmount }
+  return { ArticleAmount, WorkAmount, CommentAmount, TagAmount }
 }
