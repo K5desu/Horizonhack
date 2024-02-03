@@ -18,7 +18,7 @@ function SubmitButton({ isInputFilled }: { isInputFilled: boolean }) {
       className={`overflow-hidden whitespace-nowrap rounded-lg border py-3 transition-all duration-200 ${
         isInputFilled ? 'visible ml-2 w-auto px-4 opacity-100' : 'invisible ml-0 w-0 px-0 opacity-0'
       } ${
-        isInputFilled ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-white dark:bg-slate-800'
+        isInputFilled ? 'bg-sky-700 text-white dark:bg-sky-800' : 'bg-white dark:bg-slate-800'
       } border-gray-300 dark:border-gray-700 dark:text-gray-400`}
       aria-disabled={pending}
       disabled={pending}

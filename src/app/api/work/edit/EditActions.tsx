@@ -18,7 +18,7 @@ export async function updateWork(
     description: formData.get('description') as string,
     url: formData.get('url') as string,
     img: formData.get('img') as string,
-    visibility: Boolean(formData.get('visibility')),
+    visibility: Boolean(formData.get('radio_visibility') === 'public' ? true : false),
   }
   try {
     const work = await prisma.work.update({

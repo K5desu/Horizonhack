@@ -9,14 +9,14 @@ export default function SearchBar() {
     redirect(url)
   }
   return (
-    <form className="relative" action={search}>
+    <form className="relative z-0" action={search}>
       <input
         type="text"
-        className="text-md w-full rounded-md bg-white py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none dark:bg-slate-800 dark:text-gray-200"
+        className="text-md z-10 w-full rounded-md border bg-white py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none dark:border-gray-700 dark:bg-slate-800 dark:text-gray-200"
         placeholder="検索"
         name="search"
       />
-      <div className="absolute left-0 top-0 ml-4 mt-[0.7rem]">
+      <div className="absolute left-0 top-[50%] ml-4" style={{ transform: 'translateY(-50%)' }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

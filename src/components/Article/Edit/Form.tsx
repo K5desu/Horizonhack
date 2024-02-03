@@ -197,7 +197,7 @@ export default function ArticleEditForm({ article }: { article: Article }) {
                       onChange={() => setVisibility(false)}
                     />
                     <label
-                      htmlFor="push-everything"
+                      htmlFor="radio_private"
                       className="block text-sm font-bold leading-6 text-gray-900 dark:text-gray-100"
                     >
                       プライベート

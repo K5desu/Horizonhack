@@ -71,13 +71,13 @@ export default function Textarea({
         name="body"
         defaultValue={defaultValue}
         rows={5}
-        className="block w-full resize-none rounded-md border bg-gray-50 px-3 py-2 text-gray-900 shadow-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 sm:text-sm sm:leading-6"
+        className="block w-full resize-none rounded-md border bg-gray-50 px-3 py-2 text-gray-900 shadow-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:border-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 sm:text-sm sm:leading-6"
         required
         onChange={onChange}
       />
       {!isFocused && lineCount > 6 && (
         <button
-          className="absolute bottom-2.5 right-2.5 rounded-md border bg-gray-100 p-2 text-xs hover:bg-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-950 sm:text-sm"
+          className="absolute bottom-2.5 right-2.5 rounded-md border bg-gray-100 p-2 text-xs hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-950 sm:text-sm"
           onClick={handleFocus}
         >
           全体表示

@@ -286,21 +286,42 @@ export default function WorkEditForm({ work }: { work: Work }) {
               >
                 公開設定
               </label>
-              <div className="mt-2">
-                <div className="flex items-center">
+              <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                記事の公開設定を変更できます
+              </p>
+              <div className="mt-6 space-y-6">
+                <div className="flex items-center gap-x-3">
                   <input
-                    id="input_visibility"
-                    name="visibility"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-gray-600 focus:ring-gray-500"
-                    defaultChecked={visibility}
-                    onChange={(event) => setVisibility(event.target.checked)}
+                    id="radio_private"
+                    name="radio_visibility"
+                    type="radio"
+                    value="private"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 dark:border-gray-700"
+                    defaultChecked={visibility === false || visibility === null}
+                    onChange={() => setVisibility(false)}
                   />
                   <label
-                    htmlFor="visibility"
-                    className="ml-3 block text-sm font-medium text-gray-900 dark:text-gray-100"
+                    htmlFor="radio_private"
+                    className="block text-sm font-bold leading-6 text-gray-900 dark:text-gray-100"
                   >
-                    公開する
+                    プライベート
+                  </label>
+                </div>
+                <div className="flex items-center gap-x-3">
+                  <input
+                    id="radio_public"
+                    name="radio_visibility"
+                    type="radio"
+                    value="public"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 dark:border-gray-700"
+                    defaultChecked={visibility === true}
+                    onChange={() => setVisibility(true)}
+                  />
+                  <label
+                    htmlFor="radio_public"
+                    className="block text-sm font-bold leading-6 text-gray-900 dark:text-gray-100"
+                  >
+                    公開
                   </label>
                 </div>
               </div>

@@ -59,12 +59,10 @@ export default async function SearchTags({
 
   return (
     <>
-      {tagsWithCounts.map((tag, index) => (
+      {tagsWithCounts.map((tag) => (
         <Link href={`/tags/${tag.name}`} key={tag.id} className="group">
           <div
-            className={`flex items-center justify-between border-t p-4 ${
-              index === tagsWithCounts.length - 1 ? 'border-b' : ''
-            } border-gray-300 dark:border-gray-700`}
+            className={`flex items-center justify-between rounded-md border border-gray-300 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900`}
           >
             <div className="flex items-center">
               <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">

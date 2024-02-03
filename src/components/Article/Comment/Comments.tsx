@@ -30,7 +30,7 @@ export default async function Comments({ articleId }: { articleId: string }) {
                   src={comment.author.image || ''}
                   width={72}
                   height={72}
-                  className="h-8 w-8 rounded-full object-cover"
+                  className="h-8 w-8 rounded-full border object-cover dark:border-gray-700"
                   alt="Writer's profile image"
                 />
               </Link>

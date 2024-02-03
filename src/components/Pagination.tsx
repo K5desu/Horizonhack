@@ -23,7 +23,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         className={`mx-1 flex items-center justify-center px-4 py-2 ${
           currentPage === 1
             ? 'cursor-default text-gray-300 dark:text-gray-700'
-            : 'text-gray-700 hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-gray-200'
+            : 'text-gray-700 hover:bg-sky-800 hover:text-white dark:text-gray-200 dark:hover:bg-sky-800 dark:hover:text-gray-200'
         } rounded-md bg-gray-100 capitalize dark:bg-gray-800 `}
       >
         {'<'}
@@ -45,7 +45,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         className={`mx-1 flex items-center justify-center px-4 py-2 ${
           currentPage === totalPages
             ? 'cursor-default text-gray-700 dark:text-gray-700'
-            : 'text-gray-700 hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-gray-200'
+            : 'text-gray-700 hover:bg-sky-800 hover:text-white dark:text-gray-200 dark:hover:bg-sky-800 dark:hover:text-gray-200'
         } rounded-md bg-gray-100 capitalize dark:bg-gray-800 `}
       >
         {'>'}
@@ -65,11 +65,11 @@ function PaginationNumber({
 }) {
   const isEllipsis = page === '...'
   const activeClass = `${
-    isActive ? 'bg-blue-500 text-white' : 'text-gray-700 dark:text-gray-200 dark:bg-gray-800'
+    isActive ? 'bg-sky-700 text-white' : 'text-gray-700 dark:text-gray-200 dark:bg-gray-800'
   } ${
     isEllipsis
       ? ''
-      : 'hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200'
+      : 'hover:bg-sky-700 dark:hover:bg-sky-700 hover:text-white dark:hover:text-gray-200'
   }`
   const flag = isEllipsis || isActive
   const className = `px-4 py-2 mx-1 ${activeClass} transition-colors duration-300 transform rounded-md sm:inline`
