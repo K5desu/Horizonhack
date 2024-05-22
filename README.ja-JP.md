@@ -2,7 +2,7 @@
 Header Image
 ```
 
-:triangular_flag_on_post: [_英語_](https://github.com/Ryukoku-Horizon/2023-Hack-S-no1) / [_日本語_](README.ja-JP.md)
+:triangular*flag_on_post: [*英語*](https://github.com/Ryukoku-Horizon/2023-Hack-S-no1) / [*日本語\_](README.ja-JP.md)
 
 # Link Mono - 日本語 🚀
 
@@ -26,27 +26,31 @@ Link Monoは、ZennやQiitaのようなプラットフォームからインス�
 
 1. **Link Mono を訪れる:** 以下にアクセスして、すぐにその空間に飛び込むことができます．
 
-   [Link Mono]() *(準備中)*
+   [Link Mono]() _(準備中)_
 
-3. **探索してつながる:** サイトにアクセスしたら、記事やプロジェクトのカードを探索し、活気あるHorizonコミュニティ内で他の学習者とつながりましょう．
+2. **探索してつながる:** サイトにアクセスしたら、記事やプロジェクトのカードを探索し、活気あるHorizonコミュニティ内で他の学習者とつながりましょう．
 
-4. **共有して貢献:** 記事を作成したり、プロジェクトを披露したりして、気軽に貢献してください。協力的な空間に参加し、コミュニティと知識を共有しましょう．
+3. **共有して貢献:** 記事を作成したり、プロジェクトを披露したりして、気軽に貢献してください。協力的な空間に参加し、コミュニティと知識を共有しましょう．
 
-5. **楽しい学びと交流を！ 🌐✨**
+4. **楽しい学びと交流を！ 🌐✨**
 
 ## このプロジェクトに貢献する場合 🤝
+
 1. **リポジトリをクローン:**
+
    ```bash
    git clone https://github.com/Ryukoku-Horizon/2023-Hack-S-no1.git
    ```
 
 2. **依存関係をインストール:**
+
    ```bash
    cd link-mono
    npm install
    ```
 
 3. **新しいからのファイルを作成:**
+
    ```bash
    touch .env
    ```
@@ -55,17 +59,17 @@ Link Monoは、ZennやQiitaのようなプラットフォームからインス�
    [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres) と [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)を作成する必要があります．
 
    ```js
-   POSTGRES_URL="************"
-   POSTGRES_PRISMA_URL="************"
-   POSTGRES_URL_NON_POOLING="************"
-   POSTGRES_USER="************"
-   POSTGRES_HOST="************"
-   POSTGRES_PASSWORD="************"
-   POSTGRES_DATABASE="************"
+   POSTGRES_URL = '************'
+   POSTGRES_PRISMA_URL = '************'
+   POSTGRES_URL_NON_POOLING = '************'
+   POSTGRES_USER = '************'
+   POSTGRES_HOST = '************'
+   POSTGRES_PASSWORD = '************'
+   POSTGRES_DATABASE = '************'
    ```
 
    ```js
-   BLOB_READ_WRITE_TOKEN="************"
+   BLOB_READ_WRITE_TOKEN = '************'
    ```
 
 5. **GitHub OAuth Appを作成し、環境変数を取得:**
@@ -76,34 +80,36 @@ Link Monoは、ZennやQiitaのようなプラットフォームからインス�
    - Authorization callback URL: `http://localhost:3000/api/auth/callback/github`
 
    ```js
-   GITHUB_ID="************"
-   GITHUB_SECRET="************"
+   GITHUB_ID = '************'
+   GITHUB_SECRET = '************'
    ```
 
-
-7. **.envファイルを更新:**
+6. **.envファイルを更新:**
 
    先ほど取得した環境変数を追加してください．
 
    ```js
-   NEXTAUTH_URL="http://localhost:3000"
-   NEXTAUTH_SECRET="************" // `openssl rand -base64 32`
+   NEXTAUTH_URL = 'http://localhost:3000'
+   NEXTAUTH_SECRET = '************' // `openssl rand -base64 32`
 
-   GITHUB_ORG="DammyOrg" // Your GitHub Organization Name
-   ADMIN_USER_IDS="88787489"  // GitHub ID of the user you want to be Admin. (Integer)
+   GITHUB_ORG = 'DammyOrg' // Your GitHub Organization Name
+   ADMIN_USER_IDS = '88787489' // GitHub ID of the user you want to be Admin. (Integer)
    ```
 
-9. **アプリケーションを実行:**
+7. **アプリケーションを実行:**
+
    ```bash
    npm run dev
    ```
+
    または
+
    ```bash
    npm run build
    npm run start
    ```
 
-10. **ブラウザで [http://localhost:3000](http://localhost:3000) を訪れてください．**
+8. **ブラウザで [http://localhost:3000](http://localhost:3000) を訪れてください．**
 
 Link Monoで楽しくコーディングと知識共有を！ 🚀🌈
 
